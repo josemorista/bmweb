@@ -13,11 +13,16 @@ export const GlobalStyles = createGlobalStyle`
 		color: #fff;
 	}
 
+	li {
+		list-style: none;
+	}
+
 	input,
 	button {
 		border-radius: 5px;
 	}
 
+	a,
 	button {
 		cursor: pointer;
 		padding: 0;
@@ -40,11 +45,30 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	h1 {
-		font-size: 3rem;
+		font-size: 5rem;
+		@media (max-width: 400px) {
+			font-size: 3.5rem;
+		}
 	}
 
 	h2 {
+		font-size: 3.5rem;
+	}
+
+	h3 {
+		font-size: 3rem;
+	}
+
+	h4 {
 		font-size: 2.5rem;
+	}
+
+	h5 {
+		font-size: 2rem;
+	}
+
+	h6 {
+		font-size: 1.8rem;
 	}
 
 

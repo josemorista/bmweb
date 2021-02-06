@@ -4,6 +4,8 @@ import huapLogo from '../../../assets/images/huapLogo.png';
 import uffLogo from '../../../assets/images/uffLogo.png';
 import { Input } from '../../design/Input';
 import { Button } from '../../design/Button';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../consts';
 
 export const SignIn: React.FC = () => {
 	return (
@@ -19,7 +21,7 @@ export const SignIn: React.FC = () => {
 						<br />
 						<Input placeholder='Senha' width='400px' type='password' />
 						<br />
-						<a>Não possui uma conta? Registre-se aqui</a>
+						<Link to={ROUTES.SIGNUP}>Não possui uma conta? Registre-se aqui</Link>
 						<br />
 						<br />
 						<Button variant='primary'>Entrar</Button>

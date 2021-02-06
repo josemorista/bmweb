@@ -4,6 +4,8 @@ import huapLogo from '../../../assets/images/huapLogo.png';
 import uffLogo from '../../../assets/images/uffLogo.png';
 import { Input } from '../../design/Input';
 import { Button } from '../../design/Button';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../consts';
 
 export const SignUp: React.FC = () => {
 	return (
@@ -16,13 +18,15 @@ export const SignUp: React.FC = () => {
 				</header>
 				<section className='signUpForm'>
 					<form>
-						<Input placeholder='Nome completo' width='400px' type='email' />
+						<Input placeholder='Primeiro nome' width='400px' type='text' />
+						<br />
+						<Input placeholder='Sobrenome' width='400px' type='text' />
 						<br />
 						<Input placeholder='Email' width='400px' type='email' />
 						<br />
 						<Input placeholder='Senha' width='400px' type='password' />
 						<br />
-						<a>Já possui uma conta?</a>
+						<Link to={ROUTES.HOME}>Já possui uma conta?</Link>
 						<br />
 						<br />
 						<Button variant='primary'>Registrar</Button>

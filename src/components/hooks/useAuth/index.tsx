@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useApi } from '../useApi';
+import { useCache } from '../useCache';
 import { IUser } from './models/IUser';
 
 interface IAuthContext {
@@ -15,20 +16,21 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 
 	const [user, setUser] = useState({} as IUser);
 	const { api } = useApi();
+	const { set, invalidate, get } = useCache();
 
 	useEffect(() => {
-		localStorage.setItem('@bm-user', JSON.stringify(user));
+		set('@bm-user', user);
 	}, [user]);
 
 	useEffect(() => {
-		const token = localStorage.getItem('@bm-token');
-		const storageUser = localStorage.getItem('@bm-user');
+		const token = get<string>('@bm-token');
+		const storageUser = get<IUser>('@bm-user');
 		if (token && storageUser) {
 			api.post('/users/verifyToken', { token: localStorage }).then((response) => {
 				const { valid } = response.data;
 				if (valid) {
 					api.defaults.headers['Authorization'] = `Bearer ${token}`;
-					setUser(JSON.parse(storageUser));
+					setUser(storageUser);
 				} else {
 					logout();
 				}
@@ -37,11 +39,12 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 	}, [api]);
 
 	const logout = useCallback(() => {
-		localStorage.removeItem('@bm-user');
-		localStorage.removeItem('@bm-token');
+		setUser({} as IUser);
+		invalidate('@bm-user');
+		invalidate('@bm-token');
 	}, []);
 
-	return <authContext.Provider value={{ user, signed: !!user.id, setUser, logout }}>
+	return <authContext.Provider value={{ user, signed: true || !!user.id, setUser, logout }}>
 		{children}
 	</authContext.Provider>;
 };
