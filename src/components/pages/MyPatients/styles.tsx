@@ -1,3 +1,4 @@
+import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const MyPatientsContainer = styled.div`
@@ -30,6 +31,7 @@ export const MyPatientsContainer = styled.div`
 				max-width: 11rem;
 
 				.patient-list-thumbnail {
+					cursor: pointer;
 					width: 11rem;
 					height: 11rem;
 				
@@ -42,6 +44,11 @@ export const MyPatientsContainer = styled.div`
 					border-radius: 8px;
 
 					margin-bottom: 0.5rem;
+
+					transition: background-color 0.25s;
+					&:hover {
+						background-color: ${({ theme }) => shade(0.15, theme.colors.primary.main)}
+					}
 				}
 			}	
 		}

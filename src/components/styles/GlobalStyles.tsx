@@ -2,15 +2,14 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 	* {
-		padding: 0;
 		margin: 0;
+		padding: 0;
 		outline: 0;
 		font-size: 62.5%;
 		box-sizing: border-box;
 		box-shadow: none;
 		border: none;
 		font-family: -apple-system, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-		color: #312E38;
 	}
 
 	li {
@@ -76,7 +75,7 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	h6 {
-		font-size: 1.8rem;
+		font-size: 1.7rem;
 	}
 
 

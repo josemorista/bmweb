@@ -1,4 +1,5 @@
 import React, { forwardRef, useCallback, useImperativeHandle, useState } from 'react';
+import { Button } from '../../../design/Button';
 import { Input } from '../../../design/Input';
 import { Modal } from '../../../design/Modal';
 import { Select } from '../../../design/Select';
@@ -42,12 +43,15 @@ export const NewOrEditPatient = forwardRef<INewOrEditPatientHandle>((props, ref)
 	if (!newPatient) return null;
 
 	return <NewOrEditPatientContainer>
-		<Modal isOpen={true}>
+		<Modal isOpen onCloseCircleClick={() => { setNewPatient(null); }}>
 			<h3>{newPatient.name ? `Paciente: ${newPatient.name}` : 'Novo paciente'}</h3>
 			<Input type='text' placeholder='Nome do paciente'></Input>
 			<Input width='200px' type='date' placeholder='Data de nascimento'></Input>
 			<Select name='sex' width='200px' placeholder='Sexo do paciente' />
 			<TextArea placeholder='Observações'></TextArea>
+			<div className="form-button">
+				<Button variant='primary' type='submit'>{newPatient.name ? 'Editar' : 'Criar paciente'}</Button>
+			</div>
 		</Modal>
 	</NewOrEditPatientContainer>;
 });

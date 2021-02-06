@@ -30,10 +30,8 @@ export const MyPatients: React.FC = () => {
 	}
 
 	return <MyPatientsContainer>
-		<AppBar />
-
 		<NewOrEditPatient ref={newOrEditPatientRef} />
-
+		<AppBar />
 		<main>
 			<h1>Meus pacientes</h1>
 			<Input width='500px' placeholder='Digite o nome do paciente'></Input>

@@ -5,7 +5,8 @@ export const NewOrEditPatientContainer = styled.div`
 		color: ${({ theme }) => theme.colors.primary.main};
 		margin-bottom: 1.5rem;
 	}
-	> * {
-		margin: 0.5rem 0;
+	.form-button {
+		display: flex;
+		justify-content: flex-end;
 	}
 `;

@@ -1,3 +1,4 @@
+import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const ModalContainer = styled.div`
@@ -5,7 +6,8 @@ export const ModalContainer = styled.div`
 	top: 0;
 	left: 0;
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
+	height: 100%;
 	background-color: rgba(0,0,0,0.6);
 	
 	display: flex;
@@ -20,6 +22,15 @@ export const ModalContainer = styled.div`
 		background-color: ${({ theme }) => theme.colors.background.main};
 		overflow: auto;
 		padding: 1.5rem;
+	}
+
+	.modal-close-icon {
+		display: flex;
+		justify-content: flex-end;
+		svg {
+			cursor: pointer;
+			color: ${({ theme }) => theme.colors.primary.main};
+		}
 	}
 
 `;
