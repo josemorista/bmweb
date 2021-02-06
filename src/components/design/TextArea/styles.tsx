@@ -5,6 +5,12 @@ interface IStyledTextAreaProps {
 	width: string;
 }
 
+export const TextAreaContainer = styled.div`
+	p {
+		margin-bottom: 1rem;
+	}
+`;
+
 export const StyledTextArea = styled.textarea<IStyledTextAreaProps>`
 	padding: 1.5rem;
 	width: ${({ width }) => width};
@@ -17,4 +23,8 @@ export const StyledTextArea = styled.textarea<IStyledTextAreaProps>`
 	${({ isFocused, theme }) => isFocused && css`
 		border-color: ${theme.colors.primary.main}
 	`}
+	&:disabled {
+		background-color: transparent;
+		color: ${({ theme }) => theme.colors.secondary.main};
+	}
 `;

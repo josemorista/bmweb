@@ -7,8 +7,6 @@ export interface IPatient {
 	previousBoneLesionsLocations?: Array<string>;
 	previousQt: boolean;
 	previousRt: boolean;
-	currentOnQt: boolean;
-	currentOnRt: boolean;
 	previousCancerDiagnosis: boolean;
 	previousCancerDiagnosisType?: string;
 	observations: string;

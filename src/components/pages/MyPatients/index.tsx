@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { Button } from '../../design/Button';
 import { Input } from '../../design/Input';
 import { useAuth } from '../../hooks/useAuth';
 import { useFetch } from '../../hooks/useFetch';
@@ -35,7 +36,7 @@ export const MyPatients: React.FC = () => {
 		<main>
 			<h1>Meus pacientes</h1>
 			<Input width='500px' placeholder='Digite o nome do paciente'></Input>
-			<div className="patients-container">
+			<section className="patients-container">
 				<ul className='patients-list'>
 					{patients.map(patient => (
 						<li key={patient.id} onClick={() => {
@@ -48,7 +49,12 @@ export const MyPatients: React.FC = () => {
 						</li>
 					))}
 				</ul>
-			</div>
+			</section>
+			<section className="new-patient-button">
+				<Button variant='primary' onClick={() => {
+					newOrEditPatientRef.current?.openNewPatient();
+				}}>Novo Paciente</Button>
+			</section>
 		</main>
 	</MyPatientsContainer>;
 };

@@ -1,16 +1,24 @@
 import React from 'react';
 import CustomSelect, { Props } from 'react-select';
 import { useTheme } from 'styled-components';
+import { Input } from '../Input';
 import { SelectContainer } from './styles';
 
 interface ISelectProps extends Props {
 	width?: string;
+	label?: string;
+	disabled?: boolean;
+	placeholder?: string;
 }
 
-export const Select: React.FC<ISelectProps> = ({ width, ...rest }) => {
+export const Select: React.FC<ISelectProps> = ({ width, label, placeholder, disabled, ...rest }) => {
 	const myTheme = useTheme() as { colors: any };
+	if (disabled) {
+		return <Input disabled label={label} width={width} placeholder={placeholder} />;
+	}
 	return <SelectContainer width={width || '100%'}>
-		<CustomSelect {...rest} theme={theme => ({
+		{label && <p>{label}:</p>}
+		<CustomSelect {...rest} placeholder={placeholder || ''} theme={theme => ({
 			...theme,
 			colors: {
 				...theme.colors,

@@ -5,6 +5,12 @@ interface IStyledInputProps {
 	width: string;
 }
 
+export const InputContainer = styled.div`
+	p {
+		margin-bottom: 1rem;
+	}
+`;
+
 export const StyledInput = styled.input<IStyledInputProps>`
 	padding: 1.5rem;
 	width: ${({ width }) => width};
@@ -17,4 +23,8 @@ export const StyledInput = styled.input<IStyledInputProps>`
 	${({ isFocused, theme }) => isFocused && css`
 		border-color: ${theme.colors.primary.main}
 	`}
+	&:disabled {
+		background-color: transparent;
+		color: ${({ theme }) => theme.colors.secondary.main};
+	}
 `;

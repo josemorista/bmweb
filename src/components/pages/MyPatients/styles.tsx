@@ -50,7 +50,13 @@ export const MyPatientsContainer = styled.div`
 						background-color: ${({ theme }) => shade(0.15, theme.colors.primary.main)}
 					}
 				}
-			}	
+			}
+		}
+
+		.new-patient-button {
+			margin: 1rem 0;
+			display: flex;
+			justify-content: flex-end;
 		}
 	}
 `;
