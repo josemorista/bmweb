@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
-interface IStyledInputProps {
+interface IStyledTextAreaProps {
 	isFocused: boolean;
 	width: string;
 }
 
-export const StyledInput = styled.input<IStyledInputProps>`
+export const StyledTextArea = styled.textarea<IStyledTextAreaProps>`
 	padding: 1.5rem;
 	width: ${({ width }) => width};
 	max-width: 100%;

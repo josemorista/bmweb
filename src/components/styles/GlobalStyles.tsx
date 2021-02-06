@@ -10,16 +10,11 @@ export const GlobalStyles = createGlobalStyle`
 		box-shadow: none;
 		border: none;
 		font-family: -apple-system, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-		color: #fff;
+		color: #312E38;
 	}
 
 	li {
 		list-style: none;
-	}
-
-	input,
-	button {
-		border-radius: 5px;
 	}
 
 	a,
@@ -40,8 +35,21 @@ export const GlobalStyles = createGlobalStyle`
 	section,
 	button,
 	main,
+	textarea,
 	a {
 		font-size: 1.6rem;
+	}
+
+	p,
+	a,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	label {
+		color: #fff;
 	}
 
 	h1 {

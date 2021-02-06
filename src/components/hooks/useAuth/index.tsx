@@ -19,12 +19,12 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 	const { set, invalidate, get } = useCache();
 
 	useEffect(() => {
-		set('@bm-user', user);
+		set('user', user);
 	}, [user]);
 
 	useEffect(() => {
-		const token = get<string>('@bm-token');
-		const storageUser = get<IUser>('@bm-user');
+		const token = get<string>('token');
+		const storageUser = get<IUser>('user');
 		if (token && storageUser) {
 			api.post('/users/verifyToken', { token: localStorage }).then((response) => {
 				const { valid } = response.data;
@@ -40,8 +40,8 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 
 	const logout = useCallback(() => {
 		setUser({} as IUser);
-		invalidate('@bm-user');
-		invalidate('@bm-token');
+		invalidate('user');
+		invalidate('token');
 	}, []);
 
 	return <authContext.Provider value={{ user, signed: true || !!user.id, setUser, logout }}>
