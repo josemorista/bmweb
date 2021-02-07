@@ -79,6 +79,7 @@ export const NewOrEditPatient = forwardRef<INewOrEditPatientHandle>((props, ref)
 			<Input width='200px' disabled={!formEnabled} type='date' label='Data de nascimento'></Input>
 			<Select name='sex' disabled={!formEnabled} width='200px' options={sexOptions} label='Sexo do paciente' />
 			<Select name='sex' disabled={!formEnabled} width='200px' options={booleanOptions} label='Diagnóstico prévio de câncer?' />
+			<Select name='sex' disabled={!formEnabled} width='200px' options={booleanOptions} label='Lesões ósseas prévias?' />
 			<Select name='sex' disabled={!formEnabled} width='200px' options={booleanOptions} label='Realiza tratamento de quimioterapia?' />
 			<Select name='sex' disabled={!formEnabled} width='200px' options={booleanOptions} label='Realiza tratamento de radioterapia?' />
 			<TextArea disabled={!formEnabled} label='Observações'></TextArea>

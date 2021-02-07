@@ -2,7 +2,7 @@ export interface IPatient {
 	id: string;
 	name: string;
 	birthDate: Date;
-	sex: string;
+	sex: 'M' | 'F';
 	previousBoneLesions: boolean;
 	previousBoneLesionsLocations?: Array<string>;
 	previousQt: boolean;
