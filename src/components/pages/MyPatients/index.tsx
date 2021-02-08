@@ -8,23 +8,16 @@ import { AppBar } from '../../partials/AppBar';
 import { INewOrEditPatientHandle, NewOrEditPatient } from './NewOrEditPatient';
 import { MyPatientsContainer } from './styles';
 
-const patients = [
-	{
-		id: '1',
-		name: 'José Morista Carneiro da Silva'
-	}
-];
-
 export const MyPatients: React.FC = () => {
 
 	const { user } = useAuth();
 	const newOrEditPatientRef = useRef<INewOrEditPatientHandle>(null);
 
-	/*const { data: patients } = useFetch<Array<IPatient>>('/patients', {
+	const { data: patients } = useFetch<Array<IPatient>>('/patients', {
 		params: {
 			ownerId: user.id
 		}
-	});*/
+	});
 
 	if (!patients) {
 		return null;

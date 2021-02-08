@@ -8,5 +8,22 @@ export function useForm<T>({ initialState }: { initialState: T }) {
 		setData(values => ({ ...values, [name]: value }));
 	}, []);
 
-	return { data, onInputChange };
+	const onTextAreaChange = useCallback(({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
+		const { value, name } = target;
+		setData(values => ({ ...values, [name]: value }));
+	}, []);
+
+	const onSelectChange = useCallback((event: { value: string; name: string } | null) => {
+		// Parse values
+		if (event) {
+			const { value, name } = event;
+			let parsed: string | boolean | number = value;
+			value === 'true' && (parsed = true);
+			value === 'false' && (parsed = false);
+			console.log(typeof parsed, name);
+			setData(values => ({ ...values, [name]: parsed }));
+		}
+	}, []);
+
+	return { data, onInputChange, onSelectChange, onTextAreaChange, setData };
 }
