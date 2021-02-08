@@ -7,6 +7,7 @@ interface IAuthContext {
 	user: IUser;
 	signed: boolean;
 	setUser: React.Dispatch<React.SetStateAction<IUser>>;
+	login(data: Pick<IUser, 'email' | 'password'>): Promise<void>;
 	logout(): void;
 }
 
@@ -20,7 +21,19 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 
 	useEffect(() => {
 		set('user', user);
-	}, [user]);
+	}, [user, set]);
+
+	const logout = useCallback(() => {
+		setUser({} as IUser);
+		invalidate('user');
+		invalidate('token');
+	}, [invalidate]);
+
+	const login = useCallback(async ({ email, password }: Pick<IUser, 'email' | 'password'>): Promise<void> => {
+		const { data } = await api.post('/users/sessions', { email, password });
+		setUser(data.user);
+		api.defaults.headers['Authorization'] = `Bearer ${data.token}`;
+	}, [api]);
 
 	useEffect(() => {
 		const token = get<string>('token');
@@ -35,16 +48,12 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 					logout();
 				}
 			});
+		} else {
+			logout();
 		}
-	}, [api]);
+	}, [api, logout, get]);
 
-	const logout = useCallback(() => {
-		setUser({} as IUser);
-		invalidate('user');
-		invalidate('token');
-	}, []);
-
-	return <authContext.Provider value={{ user, signed: true || !!user.id, setUser, logout }}>
+	return <authContext.Provider value={{ user, signed: !!user.id, setUser, logout, login }}>
 		{children}
 	</authContext.Provider>;
 };

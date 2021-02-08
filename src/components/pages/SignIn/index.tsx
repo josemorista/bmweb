@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { SignInContainer } from './styles';
 import huapLogo from '../../../assets/images/huapLogo.png';
 import uffLogo from '../../../assets/images/uffLogo.png';
@@ -6,8 +6,28 @@ import { Input } from '../../design/Input';
 import { Button } from '../../design/Button';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../consts';
+import { useForm } from '../../hooks/useForm';
+import { IUser } from '../../hooks/useAuth/models/IUser';
+import { useAuth } from '../../hooks/useAuth';
 
 export const SignIn: React.FC = () => {
+	const { login } = useAuth();
+	const { data: user, onInputChange: onUserInputChange } = useForm<Pick<IUser, 'email' | 'password'>>({
+		initialState: {
+			email: '',
+			password: ''
+		}
+	});
+
+	const onSubmit = useCallback(async (e: React.FormEvent) => {
+		e.preventDefault();
+		try {
+			await login(user);
+		} catch (error) {
+			console.error(error);
+		}
+	}, [user, login]);
+
 	return (
 		<SignInContainer>
 			<main>
@@ -16,10 +36,10 @@ export const SignIn: React.FC = () => {
 					<img src={huapLogo} alt='Logo HUAP'></img>
 				</header>
 				<section className='signInForm'>
-					<form>
-						<Input placeholder='Email' width='400px' type='email' />
+					<form onSubmit={onSubmit}>
+						<Input name='email' value={user.email} onChange={onUserInputChange} placeholder='Email' width='400px' type='email' />
 						<br />
-						<Input placeholder='Senha' width='400px' type='password' />
+						<Input name='password' value={user.password} onChange={onUserInputChange} placeholder='Senha' width='400px' type='password' />
 						<br />
 						<Link to={ROUTES.SIGNUP}>Não possui uma conta? Registre-se aqui</Link>
 						<br />

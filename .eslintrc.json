@@ -6,6 +6,8 @@
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
+		"react-app",
+		"react-app/jest",
 		"plugin:@typescript-eslint/recommended"
 	],
 	"parser": "@typescript-eslint/parser",
@@ -17,7 +19,7 @@
 		"sourceType": "module"
 	},
 	"plugins": [
-		"react",
+		"react-hooks",
 		"@typescript-eslint"
 	],
 	"rules": {
