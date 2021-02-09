@@ -54,8 +54,7 @@ export const NewOrEditPatient = forwardRef<INewOrEditPatientHandle>((props, ref)
 	const onSubmit = useCallback(async () => {
 		try {
 			if (formType.current === 'new') {
-				console.log(newPatient);
-				await api.post('/patients', newPatient);
+				await api.post('/patients', { ...newPatient, birthDate: null });
 			}
 			if (formType.current === 'edit') {
 				await api.put(`/patients/${newPatient.id}`, newPatient);
