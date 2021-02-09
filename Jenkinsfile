@@ -14,7 +14,7 @@ pipeline {
             steps {
 							sh """
                 npm install
-								cp ./.env.sample ./.env
+								echo 'REACT_API_BASE_URL = https://api.bm-diag.org' &> .env
 								npm run build
 								tar czf $artifact build
 								scp ./$artifact ubuntu@$host:/tmp/$artifact
