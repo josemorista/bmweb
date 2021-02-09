@@ -2,8 +2,8 @@
 	"apps": [
 		{
 			"name": "bm-web",
-			"script": "npm",
-			"args": "run dev:web",
+			"script": "npx",
+			"args": "serve build -p 3000",
 			"exec_mode": "cluster",
 			"instances": 1,
 			"merge_logs": true,
