@@ -1,0 +1,16 @@
+{
+	"apps": [
+		{
+			"name": "bm-web",
+			"script": "npm",
+			"args": "run dev:web",
+			"exec_mode": "cluster",
+			"instances": 1,
+			"merge_logs": true,
+			"log_date_format": "YYYY-MM-DD HH:mm Z",
+			"env": {
+				"REACT_API_BASE_URL": "https://api.bm-diag.org"
+			}
+		}
+	]
+}
