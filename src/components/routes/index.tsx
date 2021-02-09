@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
-import { ROUTES } from '../consts';
+import { ROUTES } from '../../consts';
 import { MyPatients } from '../pages/MyPatients';
 import { PatientExams } from '../pages/PatientExams';
 import { SignUp } from '../pages/SignUp';

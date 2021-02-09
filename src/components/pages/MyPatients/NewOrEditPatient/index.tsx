@@ -10,7 +10,7 @@ import { IPatient } from '../../../hooks/usePatient/models/IPatient';
 import { booleanOptions, sexOptions } from './options';
 import { NewOrEditPatientContainer } from './styles';
 import { useHistory } from 'react-router-dom';
-import { ROUTES } from '../../../consts';
+import { ROUTES } from '../../../../consts';
 import { useForm } from '../../../hooks/useForm';
 
 export interface INewOrEditPatientHandle {

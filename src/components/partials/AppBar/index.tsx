@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../../design/Button';
 import { AppBarContainer } from './styles';
 import { useHistory } from 'react-router-dom';
-import { ROUTES } from '../../consts';
+import { ROUTES } from '../../../consts';
 import { useAuth } from '../../hooks/useAuth';
 
 export const AppBar: React.FC = () => {

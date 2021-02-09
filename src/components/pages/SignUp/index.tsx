@@ -5,7 +5,7 @@ import uffLogo from '../../../assets/images/uffLogo.png';
 import { Input } from '../../design/Input';
 import { Button } from '../../design/Button';
 import { Link, useHistory } from 'react-router-dom';
-import { ROUTES } from '../../consts';
+import { ROUTES } from '../../../consts';
 import { IUser } from '../../hooks/useAuth/models/IUser';
 import { useForm } from '../../hooks/useForm';
 import { useApi } from '../../hooks/useApi';
