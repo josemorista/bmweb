@@ -13,10 +13,10 @@ pipeline {
         stage('Build') { 
             steps {
 							sh """
-                npm install --force
+                npm install
 								echo 'REACT_API_BASE_URL = https://api.bm-diag.org' &> .env
 								npm run build
-								tar czf $artifact build
+								tar czf $artifact build process.json
 								scp ./$artifact ubuntu@$host:/tmp/$artifact
 								rm -rf ./*
 							"""
