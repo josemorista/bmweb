@@ -12,28 +12,43 @@ import { NewOrEditPatientContainer } from './styles';
 import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../../../../consts';
 import { useForm } from '../../../hooks/useForm';
+import { format } from 'date-fns';
+export interface INewOrEditPatientProps {
+	onClose(): Promise<void> | void;
+}
 
 export interface INewOrEditPatientHandle {
 	openPatientToEdit(patientId: string): Promise<void>;
 	openNewPatient(): void;
 }
 
-export const NewOrEditPatient = forwardRef<INewOrEditPatientHandle>((props, ref) => {
+const initialPatientState: IPatient = {
+	name: '',
+	observations: '',
+	previousBoneLesions: false,
+	previousCancerDiagnosis: false,
+	previousQt: false,
+	previousRt: false,
+	sex: 'M',
+	birthDate: new Date()
+} as IPatient;
+
+export const NewOrEditPatient = forwardRef<INewOrEditPatientHandle, INewOrEditPatientProps>(({ onClose }, ref) => {
 
 	const history = useHistory();
-	const { data: newPatient, setData: setNewPatient, onSelectChange, onInputChange, onTextAreaChange } = useForm<IPatient>({
-		initialState: {} as IPatient
+	const { data: newPatient, setData: setNewPatient, onSelectChange, onInputChange, onTextAreaChange } = useForm<IPatient | null>({
+		initialState: null
 	});
 	const { setPatient } = usePatient();
 	const [formEnabled, setFormEnabled] = useState(true);
-	const formType = useRef<'new' | 'edit' | 'none'>('none');
+	const formType = useRef<'new' | 'edit'>('new');
 	const { api } = useApi();
 
 	const openPatientToEdit = useCallback<INewOrEditPatientHandle['openPatientToEdit']>(async (patientId) => {
 		try {
 			const { data } = await api.get(`/patients/${patientId}`);
 			formType.current = 'edit';
-			setNewPatient(data);
+			setNewPatient({ ...data, birthDate: new Date(data.birthDate) });
 			setFormEnabled(false);
 		} catch (error) {
 			console.error(error);
@@ -42,7 +57,7 @@ export const NewOrEditPatient = forwardRef<INewOrEditPatientHandle>((props, ref)
 
 	const openNewPatient = useCallback(() => {
 		formType.current = 'new';
-		setNewPatient({} as IPatient);
+		setNewPatient(initialPatientState);
 		setFormEnabled(true);
 	}, [setNewPatient]);
 
@@ -52,27 +67,30 @@ export const NewOrEditPatient = forwardRef<INewOrEditPatientHandle>((props, ref)
 	}));
 
 	const onSubmit = useCallback(async () => {
-		try {
-			if (formType.current === 'new') {
-				await api.post('/patients', { ...newPatient, birthDate: null });
+		if (newPatient) {
+			try {
+				if (formType.current === 'new') {
+					await api.post('/patients', newPatient);
+					setNewPatient(null);
+					onClose();
+				}
+				if (formType.current === 'edit') {
+					await api.put(`/patients/${newPatient.id}`, newPatient);
+				}
+			} catch (error) {
+				console.error(error);
 			}
-			if (formType.current === 'edit') {
-				await api.put(`/patients/${newPatient.id}`, newPatient);
-			}
-			formType.current = 'none';
-		} catch (error) {
-			console.error(error);
 		}
 	}, [api, newPatient]);
 
-	if (formType.current === 'none') {
+	if (!newPatient) {
 		return null;
 	}
 
 	return <NewOrEditPatientContainer>
 		<Modal isOpen onCloseCircleClick={() => {
-			setNewPatient({} as IPatient);
-			formType.current = 'none';
+			setNewPatient(null);
+			onClose();
 		}}>
 			<header>
 				<h3>{formType.current === 'edit' ? `Paciente: ${newPatient.name}` : 'Novo paciente'}</h3>
@@ -81,12 +99,17 @@ export const NewOrEditPatient = forwardRef<INewOrEditPatientHandle>((props, ref)
 						setPatient(newPatient);
 						history.push(ROUTES.PATIENT_EXAMS);
 					}}>Ir para exames</Button>
-					<Button variant='primary' onClick={() => { setFormEnabled(!formEnabled); }}>Editar paciente</Button>
+					<Button variant='primary' onClick={() => {
+						setFormEnabled(!formEnabled);
+					}}>Editar paciente</Button>
 				</div>}
 			</header>
 
 			<Input name='name' value={newPatient.name || ''} onChange={onInputChange} type='text' disabled={!formEnabled} label='Nome do paciente'></Input>
-			<Input name='birthDate' value={''} onChange={onInputChange} width='200px' disabled={!formEnabled} type='date' label='Data de nascimento'></Input>
+
+			<Input name='birthDate' value={newPatient.birthDate instanceof Date ? format(newPatient.birthDate, 'yyyy-MM-dd') : newPatient.birthDate} onChange={(e) => {
+				setNewPatient({ ...newPatient, birthDate: new Date(e.target.value) });
+			}} width='200px' disabled={!formEnabled} type='date' label='Data de nascimento'></Input>
 
 			<Select name='sex' value={newPatient.sex} disabled={!formEnabled} onChange={onSelectChange} width='200px' options={sexOptions} label='Sexo do paciente' />
 

@@ -13,7 +13,7 @@ export const MyPatients: React.FC = () => {
 	const { user } = useAuth();
 	const newOrEditPatientRef = useRef<INewOrEditPatientHandle>(null);
 
-	const { data: patients } = useFetch<Array<IPatient>>('/patients', {
+	const { data: patients, revalidate } = useFetch<Array<IPatient>>('/patients', {
 		params: {
 			ownerId: user.id
 		}
@@ -24,7 +24,9 @@ export const MyPatients: React.FC = () => {
 	}
 
 	return <MyPatientsContainer>
-		<NewOrEditPatient ref={newOrEditPatientRef} />
+		<NewOrEditPatient ref={newOrEditPatientRef} onClose={() => {
+			revalidate();
+		}} />
 		<AppBar />
 		<main>
 			<h1>Meus pacientes</h1>

@@ -1,4 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { ROUTES } from '../../../consts';
 import { IPatient } from './models/IPatient';
 
 interface IPatientContext {
@@ -23,6 +25,11 @@ export const PatientContextProvider: React.FC = ({ children }) => {
 	</patientContext.Provider>;
 };
 
-export const usePatient = (): IPatientContext => {
-	return useContext(patientContext);
+export const usePatient = (data?: { ensurePatient?: boolean }): IPatientContext => {
+	const history = useHistory();
+	const ctx = useContext(patientContext);
+	if (data?.ensurePatient && !ctx.patient.id) {
+		history.push(ROUTES.HOME);
+	}
+	return ctx;
 };

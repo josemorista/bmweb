@@ -52,30 +52,30 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	h1 {
-		font-size: 5rem;
+		font-size: 4rem;
 		@media (max-width: 400px) {
-			font-size: 3.5rem;
+			font-size: 3.2rem;
 		}
 	}
 
 	h2 {
-		font-size: 3.5rem;
-	}
-
-	h3 {
 		font-size: 3rem;
 	}
 
+	h3 {
+		font-size: 2.8rem;
+	}
+
 	h4 {
-		font-size: 2.5rem;
+		font-size: 2.3rem;
 	}
 
 	h5 {
-		font-size: 2rem;
+		font-size: 1.8rem;
 	}
 
 	h6 {
-		font-size: 1.7rem;
+		font-size: 1.6rem;
 	}
 
 

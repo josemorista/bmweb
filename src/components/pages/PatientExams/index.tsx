@@ -38,7 +38,9 @@ const exams = [{
 }];
 
 export const PatientExams: React.FC = () => {
-	const { patient } = usePatient();
+	const { patient } = usePatient({
+		ensurePatient: true
+	});
 
 	/*const {data: exams} = useFetch('/exams', {
 		params: {

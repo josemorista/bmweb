@@ -24,7 +24,7 @@ export const Select: React.FC<ISelectProps> = ({ width, label, options, placehol
 	}, [value, options]);
 
 	if (disabled) {
-		return <Input disabled label={label} width={width} placeholder={placeholder} />;
+		return <Input disabled value={currentValue.label} label={label} width={width} placeholder={placeholder} />;
 	}
 
 	return <SelectContainer width={width || '100%'}>
