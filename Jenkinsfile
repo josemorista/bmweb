@@ -5,6 +5,7 @@ pipeline {
 			artifact = 'bmwartifact.tgz'
 			directory = '/home/ubuntu/bmweb'
 			host = 'ec2-34-203-244-243.compute-1.amazonaws.com'
+			REACT_APP_API_BASE_URL = 'https://api.bm-diag.org'
 		}
 
     tools {nodejs "nodejs"}
@@ -14,7 +15,6 @@ pipeline {
             steps {
 							sh """
                 npm install
-								echo 'REACT_APP_API_BASE_URL = https://api.bm-diag.org' &> .env
 								npm run build
 								tar czf $artifact build process.json
 								scp ./$artifact ubuntu@$host:/tmp/$artifact
