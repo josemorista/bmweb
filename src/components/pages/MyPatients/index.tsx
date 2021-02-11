@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { Button } from '../../design/Button';
 import { Input } from '../../design/Input';
 import { useAuth } from '../../hooks/useAuth';
@@ -11,17 +11,24 @@ import { MyPatientsContainer } from './styles';
 export const MyPatients: React.FC = () => {
 
 	const { user } = useAuth();
+	const [patientToSearch, setPatientToSearch] = useState('');
 	const newOrEditPatientRef = useRef<INewOrEditPatientHandle>(null);
 
-	const { data: patients, revalidate } = useFetch<Array<IPatient>>('/patients', {
-		params: {
-			ownerId: user.id
-		}
+	const params = useMemo(() => ({
+		ownerId: user.id
+	}), [user.id]);
+
+	const { data: patientsFetched, revalidate } = useFetch<Array<IPatient>>('/patients', {
+		params
 	});
 
-	if (!patients) {
-		return null;
-	}
+	const patients = useMemo(() => {
+		if (patientsFetched) {
+			return patientsFetched?.filter(patient => patient.name.toLowerCase().includes(patientToSearch.toLowerCase()));
+		}
+		return [];
+	}, [patientsFetched, patientToSearch]);
+
 
 	return <MyPatientsContainer>
 		<NewOrEditPatient ref={newOrEditPatientRef} onClose={() => {
@@ -30,7 +37,7 @@ export const MyPatients: React.FC = () => {
 		<AppBar />
 		<main>
 			<h1>Meus pacientes</h1>
-			<Input width='500px' placeholder='Digite o nome do paciente'></Input>
+			<Input width='500px' value={patientToSearch} onChange={(e) => { setPatientToSearch(e.target.value); }} placeholder='Digite o nome do paciente'></Input>
 			<section className="patients-container">
 				<ul className='patients-list'>
 					{patients.map(patient => (

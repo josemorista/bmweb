@@ -4,49 +4,19 @@ import { usePatient } from '../../hooks/usePatient';
 import { AppBar } from '../../partials/AppBar';
 import { PatientExamsContainer } from './styles';
 import { AiOutlineFileDone } from 'react-icons/ai';
-import { dateSerializer } from '../../../serializers/dateSerializer';
-
-const exams = [{
-	id: '1',
-	category: 'ANT',
-	label: 'ID001',
-	date: new Date()
-},
-{
-	id: '2',
-	category: 'ANT',
-	label: 'ID001',
-	date: new Date()
-},
-{
-	id: '3',
-	category: 'ANT',
-	label: 'ID001',
-	date: new Date()
-},
-{
-	id: '4',
-	category: 'ANT',
-	label: 'ID001',
-	date: new Date()
-},
-{
-	id: '5',
-	category: 'ANT',
-	label: 'ID001',
-	date: new Date()
-}];
+import { IExam } from '../../hooks/useExam/models/IExam';
+import { format } from 'date-fns';
 
 export const PatientExams: React.FC = () => {
 	const { patient } = usePatient({
 		ensurePatient: true
 	});
 
-	/*const {data: exams} = useFetch('/exams', {
+	const { data: exams } = useFetch<Array<IExam>>('/exams', {
 		params: {
 			patientId: patient.id
 		}
-	});*/
+	});
 
 	if (!exams) {
 		return null;
@@ -63,7 +33,7 @@ export const PatientExams: React.FC = () => {
 						{exams.map(exam => (<li key={exam.id}>
 							<AiOutlineFileDone size='7rem' />
 							<h6>{exam.label}</h6>
-							<p>{dateSerializer(exam.date)}</p>
+							<p>{format(exam.createdAt, 'dd/MM/yyyy')}</p>
 						</li>))}
 					</ul>
 				</div>

@@ -1,19 +1,15 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useApi } from '../useApi';
 
 interface IUseFetchParams {
-	params?: Record<string, unknown>;
+	params?: Record<string, number | string | boolean>;
 	timeout?: number;
 }
 
-export function useFetch<T>(url: string, { params, timeout }: IUseFetchParams) {
+export function useFetch<T>(url: string, { params, timeout = 5000 }: IUseFetchParams) {
 	const { api } = useApi();
 	const [dataFetched, setDataFetched] = useState<T>();
 	const [error, setError] = useState<Error | null>(null);
-
-	const data = useMemo(() => {
-		return dataFetched;
-	}, [dataFetched]);
 
 	const fetch = useCallback(async () => {
 		try {
@@ -26,12 +22,12 @@ export function useFetch<T>(url: string, { params, timeout }: IUseFetchParams) {
 		} catch (error) {
 			setError(error);
 		}
-	}, [api]);
+	}, [api, url, params, timeout]);
 
 	useEffect(() => {
 		fetch();
-	}, []);
+	}, [fetch]);
 
-	return { data, revalidate: fetch, mutate: setDataFetched, error };
+	return { data: dataFetched, revalidate: fetch, mutate: setDataFetched, error };
 
 }
