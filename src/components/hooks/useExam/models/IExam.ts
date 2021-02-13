@@ -12,6 +12,7 @@ export interface IExam {
 	processedImgLocation: string;
 	originalImgLocation: string;
 	originalImgLocationURL: string;
+	processedImgLocationURL: string;
 	dicomFileLocation: string;
 	createdAt: Date;
 	updatedAt: Date;

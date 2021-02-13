@@ -23,7 +23,15 @@ export const ProcessPatientExamContainer = styled.div`
 
 		.processed-result-container {
 			display: flex;
-			justify-content: center;			
+			justify-content: center;
+			> img {
+				margin: 0 1rem;
+			}		
+		}
+
+		.go-next-button {
+			display: flex;
+			justify-content: flex-end;
 		}
 	}
 `;

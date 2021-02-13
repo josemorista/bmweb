@@ -22,7 +22,7 @@ export function useFetch<T>(url: string, { params, timeout = 5000 }: IUseFetchPa
 		} catch (error) {
 			setError(error);
 		}
-	}, [api, url, params, timeout]);
+	}, [api, url, timeout]);
 
 	useEffect(() => {
 		fetch();
