@@ -5,6 +5,7 @@ import { GlobalStyles } from './styles/GlobalStyles';
 import { Routes } from './routes';
 import { AuthContextProvider } from './hooks/useAuth';
 import { PatientContextProvider } from './hooks/usePatient';
+import { ExamContextProvider } from './hooks/useExam';
 
 export const App: React.FC = () => {
 	return (
@@ -12,7 +13,9 @@ export const App: React.FC = () => {
 			<GlobalStyles />
 			<AuthContextProvider>
 				<PatientContextProvider>
-					<Routes />
+					<ExamContextProvider>
+						<Routes />
+					</ExamContextProvider>
 				</PatientContextProvider>
 			</AuthContextProvider>
 		</ThemeProvider>);

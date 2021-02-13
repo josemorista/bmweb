@@ -42,5 +42,10 @@ export const PatientExamsContainer = styled.div`
 				}
 			}
 		}
+
+		.new-exam-button {
+			display: flex;
+			justify-content: flex-end;
+		}
 	}
 `;
