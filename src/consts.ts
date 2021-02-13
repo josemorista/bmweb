@@ -2,7 +2,8 @@ export const ROUTES = {
 	HOME: '/',
 	SIGNUP: '/registrar',
 	PATIENT_EXAMS: '/exames-paciente',
-	NEW_PATIENT_EXAM: '/novo-exame'
+	NEW_PATIENT_EXAM: '/novo-exame',
+	PROCESS_PATIENT_EXAM: '/processar-exame'
 };
 
 

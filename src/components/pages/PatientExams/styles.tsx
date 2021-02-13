@@ -22,7 +22,7 @@ export const PatientExamsContainer = styled.div`
 
 		.exams-container {
 			margin-top: 2.5rem;
-			height: 15rem;
+			height: 16rem;
 			border: 5px solid ${({ theme }) => theme.colors.primary.main};
 			border-radius: 8px;
 			overflow-x: auto;

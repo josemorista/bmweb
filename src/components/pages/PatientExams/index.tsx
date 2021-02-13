@@ -9,6 +9,7 @@ import { format } from 'date-fns';
 import { Button } from '../../design/Button';
 import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../../../consts';
+import { useExam } from '../../hooks/useExam';
 
 export const PatientExams: React.FC = () => {
 
@@ -17,6 +18,8 @@ export const PatientExams: React.FC = () => {
 	const { patient } = usePatient({
 		ensurePatient: true
 	});
+
+	const { setExam } = useExam();
 
 	const { data: exams } = useFetch<Array<IExam>>('/exams', {
 		params: {
@@ -43,7 +46,10 @@ export const PatientExams: React.FC = () => {
 				<h4>Exames processados <b>(ANTERIOR)</b>:</h4>
 				<div className='exams-container'>
 					<ul>
-						{categorizedExams['ant'].map(exam => (<li key={exam.id}>
+						{categorizedExams['ant'].map(exam => (<li key={exam.id} onClick={() => {
+							setExam(exam);
+							history.push(ROUTES.PROCESS_PATIENT_EXAM);
+						}}>
 							<AiOutlineFileDone size='7rem' />
 							<h6>{exam.label}</h6>
 							<p>{format(exam.createdAt, 'dd/MM/yyyy')}</p>
