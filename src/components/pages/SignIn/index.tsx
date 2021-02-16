@@ -37,9 +37,9 @@ export const SignIn: React.FC = () => {
 				</header>
 				<section className='signInForm'>
 					<form onSubmit={onSubmit}>
-						<Input name='email' value={user.email} onChange={onUserInputChange} placeholder='Email' width='400px' type='email' />
+						<Input name='email' value={user.email} onChange={onUserInputChange} placeholder='Email' width='350px' type='email' />
 						<br />
-						<Input name='password' value={user.password} onChange={onUserInputChange} placeholder='Senha' width='400px' type='password' />
+						<Input name='password' value={user.password} onChange={onUserInputChange} placeholder='Senha' width='350px' type='password' />
 						<br />
 						<Link to={ROUTES.SIGNUP}>Não possui uma conta? Registre-se aqui</Link>
 						<br />

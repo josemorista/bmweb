@@ -5,39 +5,39 @@ import { useApi } from '../../../../hooks/useApi';
 import { useExam } from '../../../../hooks/useExam';
 import { useForm } from '../../../../hooks/useForm';
 
-const denoiseMethodOptions = [
+const edgeFilterMethodOptions = [
 	{
-		label: 'Filtro de mediana',
-		value: 'median'
+		label: 'Sobel',
+		value: 'sobel'
 	}
 ];
 
-interface IDenoiseImgProps {
+interface IApplyEdgeFilterProps {
 	goNext(): void;
 }
 
-export const DenoiseImg: React.FC<IDenoiseImgProps> = ({ goNext }) => {
+export const ApplyEdgeFilter: React.FC<IApplyEdgeFilterProps> = ({ goNext }) => {
 
 	const { api } = useApi();
 	const { exam } = useExam();
 
 	const [updateImgPixel, setUpdateImgPixel] = useState(Math.round(Math.random() * 100));
-	const { data: denoiseOptions, onSelectChange } = useForm({
+	const { data: edgeFilterOptions, onSelectChange } = useForm({
 		initialState: {
-			method: 'median'
+			method: 'sobel'
 		}
 	});
 
-	const reprocessWithDenoiseMethod = useCallback(async () => {
-		await api.patch(`exams/preProcessing/${exam.id}/applyDenoiseFilter`, denoiseOptions);
+	const reprocessWithEdgeFilterMethod = useCallback(async () => {
+		await api.patch(`exams/preProcessing/${exam.id}/applyEdgeFilter`, edgeFilterOptions);
 		setUpdateImgPixel(value => (value + 1));
-	}, [api, denoiseOptions, exam]);
+	}, [api, edgeFilterOptions, exam]);
 
 	return <>
-		<h4 style={{ marginBottom: '2rem' }}>Selecione o método desejado para remoção de ruídos da imagem:</h4>
-		<Select width='40rem' onChange={onSelectChange} name='method' options={denoiseMethodOptions}></Select>
+		<h4 style={{ marginBottom: '2rem' }}>Selecione o filtro de aplicação para realce e futura detecção dos contornos das metástases na imagem:</h4>
+		<Select width='40rem' onChange={onSelectChange} name='method' options={edgeFilterMethodOptions}></Select>
 		<Button variant='primary' onClick={() => {
-			reprocessWithDenoiseMethod();
+			reprocessWithEdgeFilterMethod();
 		}}>Reprocessar</Button>
 		<div className='processed-result-container'>
 			<img src={exam.originalImgLocationURL} alt='original' />

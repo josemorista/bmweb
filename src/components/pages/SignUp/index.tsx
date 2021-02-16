@@ -46,13 +46,13 @@ export const SignUp: React.FC = () => {
 				</header>
 				<section className='signUpForm'>
 					<form onSubmit={onSubmit}>
-						<Input name='firstName' value={newUser.firstName} onChange={onUserInputChange} placeholder='Primeiro nome' width='400px' type='text' />
+						<Input name='firstName' value={newUser.firstName} onChange={onUserInputChange} placeholder='Primeiro nome' width='350px' type='text' />
 						<br />
-						<Input name='lastName' value={newUser.lastName} onChange={onUserInputChange} placeholder='Sobrenome' width='400px' type='text' />
+						<Input name='lastName' value={newUser.lastName} onChange={onUserInputChange} placeholder='Sobrenome' width='350px' type='text' />
 						<br />
-						<Input name='email' value={newUser.email} onChange={onUserInputChange} placeholder='Email' width='400px' type='email' />
+						<Input name='email' value={newUser.email} onChange={onUserInputChange} placeholder='Email' width='350px' type='email' />
 						<br />
-						<Input name='password' value={newUser.password} onChange={onUserInputChange} placeholder='Senha' width='400px' type='password' />
+						<Input name='password' value={newUser.password} onChange={onUserInputChange} placeholder='Senha' width='350px' type='password' />
 						<br />
 						<Link to={ROUTES.HOME}>Já possui uma conta?</Link>
 						<br />

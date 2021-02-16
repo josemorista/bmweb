@@ -17,7 +17,7 @@ export const ClipAndConvertToImg: React.FC<IClipAndConvertToImg> = ({ goNext }) 
 
 	const { api } = useApi();
 	const { exam } = useExam();
-	const [updateImgPixel, setUpdateImgPixel] = useState(0);
+	const [updateImgPixel, setUpdateImgPixel] = useState(Math.round(Math.random() * 100));
 
 	const { data: convertOptions, onInputChange } = useForm({
 		initialState: {

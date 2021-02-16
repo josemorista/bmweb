@@ -5,39 +5,39 @@ import { useApi } from '../../../../hooks/useApi';
 import { useExam } from '../../../../hooks/useExam';
 import { useForm } from '../../../../hooks/useForm';
 
-const denoiseMethodOptions = [
+const equalizeHistogramMethodOptions = [
 	{
-		label: 'Filtro de mediana',
-		value: 'median'
+		label: 'Equalização adaptativa',
+		value: 'adapthist'
 	}
 ];
 
-interface IDenoiseImgProps {
+interface IHistogramEqualizationProps {
 	goNext(): void;
 }
 
-export const DenoiseImg: React.FC<IDenoiseImgProps> = ({ goNext }) => {
+export const HistogramEqualization: React.FC<IHistogramEqualizationProps> = ({ goNext }) => {
 
 	const { api } = useApi();
 	const { exam } = useExam();
 
 	const [updateImgPixel, setUpdateImgPixel] = useState(Math.round(Math.random() * 100));
-	const { data: denoiseOptions, onSelectChange } = useForm({
+	const { data: equalizeHistogramOptions, onSelectChange } = useForm({
 		initialState: {
-			method: 'median'
+			method: 'adapthist'
 		}
 	});
 
-	const reprocessWithDenoiseMethod = useCallback(async () => {
-		await api.patch(`exams/preProcessing/${exam.id}/applyDenoiseFilter`, denoiseOptions);
+	const reprocessWithEqualizeHistogramMethod = useCallback(async () => {
+		await api.patch(`exams/preProcessing/${exam.id}/applyHistogramEqualization`, equalizeHistogramOptions);
 		setUpdateImgPixel(value => (value + 1));
-	}, [api, denoiseOptions, exam]);
+	}, [api, equalizeHistogramOptions, exam]);
 
 	return <>
-		<h4 style={{ marginBottom: '2rem' }}>Selecione o método desejado para remoção de ruídos da imagem:</h4>
-		<Select width='40rem' onChange={onSelectChange} name='method' options={denoiseMethodOptions}></Select>
+		<h4 style={{ marginBottom: '2rem' }}>Selecione o método desejado para equalização do histograma:</h4>
+		<Select width='40rem' onChange={onSelectChange} name='method' options={equalizeHistogramMethodOptions}></Select>
 		<Button variant='primary' onClick={() => {
-			reprocessWithDenoiseMethod();
+			reprocessWithEqualizeHistogramMethod();
 		}}>Reprocessar</Button>
 		<div className='processed-result-container'>
 			<img src={exam.originalImgLocationURL} alt='original' />

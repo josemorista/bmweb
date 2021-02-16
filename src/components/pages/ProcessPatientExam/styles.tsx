@@ -24,6 +24,8 @@ export const ProcessPatientExamContainer = styled.div`
 		.processed-result-container {
 			display: flex;
 			justify-content: center;
+			flex-wrap: wrap;
+			margin: 1rem 0;
 			> img {
 				margin: 0 1rem;
 			}		

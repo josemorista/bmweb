@@ -76,12 +76,13 @@ export const NewOrEditPatient = forwardRef<INewOrEditPatientHandle, INewOrEditPa
 				}
 				if (formType.current === 'edit') {
 					await api.put(`/patients/${newPatient.id}`, newPatient);
+					setFormEnabled(false);
 				}
 			} catch (error) {
 				console.error(error);
 			}
 		}
-	}, [api, newPatient]);
+	}, [api, newPatient, onClose, setNewPatient]);
 
 	if (!newPatient) {
 		return null;

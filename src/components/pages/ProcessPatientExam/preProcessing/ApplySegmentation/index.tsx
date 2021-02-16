@@ -5,39 +5,41 @@ import { useApi } from '../../../../hooks/useApi';
 import { useExam } from '../../../../hooks/useExam';
 import { useForm } from '../../../../hooks/useForm';
 
-const denoiseMethodOptions = [
+const segmentImgMethodOptions = [
 	{
-		label: 'Filtro de mediana',
-		value: 'median'
+		label: 'Otsu multinível',
+		value: 'otsu'
 	}
 ];
 
-interface IDenoiseImgProps {
+interface IApplyImgSegmentationProps {
 	goNext(): void;
 }
 
-export const DenoiseImg: React.FC<IDenoiseImgProps> = ({ goNext }) => {
+export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goNext }) => {
 
 	const { api } = useApi();
 	const { exam } = useExam();
 
 	const [updateImgPixel, setUpdateImgPixel] = useState(Math.round(Math.random() * 100));
-	const { data: denoiseOptions, onSelectChange } = useForm({
+	const { data: applyImgSegmentationOptions, onSelectChange } = useForm({
 		initialState: {
-			method: 'median'
+			method: 'otsu'
 		}
 	});
 
-	const reprocessWithDenoiseMethod = useCallback(async () => {
-		await api.patch(`exams/preProcessing/${exam.id}/applyDenoiseFilter`, denoiseOptions);
+	const reprocessWithImgSegmentationMethod = useCallback(async () => {
+		await api.patch(`exams/preProcessing/${exam.id}/applySegmentation`, applyImgSegmentationOptions);
 		setUpdateImgPixel(value => (value + 1));
-	}, [api, denoiseOptions, exam]);
+	}, [api, applyImgSegmentationOptions, exam]);
 
 	return <>
-		<h4 style={{ marginBottom: '2rem' }}>Selecione o método desejado para remoção de ruídos da imagem:</h4>
-		<Select width='40rem' onChange={onSelectChange} name='method' options={denoiseMethodOptions}></Select>
+		<h4 style={{ marginBottom: '2rem' }}>Selecione o método desejado para realizar a segmentação de áreas de intensidade intensiva:</h4>
+		<p>Nesta etapa serão considerados valores de corte no histograma das intensidades tons de cinza imagem que melhor a segmentam.</p>
+		<br />
+		<Select width='40rem' onChange={onSelectChange} name='method' options={segmentImgMethodOptions}></Select>
 		<Button variant='primary' onClick={() => {
-			reprocessWithDenoiseMethod();
+			reprocessWithImgSegmentationMethod();
 		}}>Reprocessar</Button>
 		<div className='processed-result-container'>
 			<img src={exam.originalImgLocationURL} alt='original' />
