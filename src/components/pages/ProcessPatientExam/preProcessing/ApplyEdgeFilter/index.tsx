@@ -21,7 +21,7 @@ export const ApplyEdgeFilter: React.FC<IApplyEdgeFilterProps> = ({ goNext }) => 
 	const { api } = useApi();
 	const { exam } = useExam();
 
-	const [updateImgPixel, setUpdateImgPixel] = useState(Math.round(Math.random() * 100));
+	const [updateImgPixel, setUpdateImgPixel] = useState(0);
 	const { data: edgeFilterOptions, onSelectChange } = useForm({
 		initialState: {
 			method: 'sobel'
@@ -40,8 +40,8 @@ export const ApplyEdgeFilter: React.FC<IApplyEdgeFilterProps> = ({ goNext }) => 
 			reprocessWithEdgeFilterMethod();
 		}}>Reprocessar</Button>
 		<div className='processed-result-container'>
-			<img src={exam.originalImgLocationURL} alt='original' />
-			<img src={`${exam.processedImgLocationURL}?update=${updateImgPixel}`} alt='processed' />
+			{exam.segmentedImgLocationURL && <img src={exam.segmentedImgLocationURL} alt='segmented' />}
+			{exam.edgedImgLocationURL && <img src={`${exam.edgedImgLocationURL}?update=${updateImgPixel}`} alt='processed' />}
 		</div>
 		<div className='go-next-button'>
 			<Button variant='primary' onClick={() => {

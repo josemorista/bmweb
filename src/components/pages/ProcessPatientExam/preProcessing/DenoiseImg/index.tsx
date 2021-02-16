@@ -40,8 +40,8 @@ export const DenoiseImg: React.FC<IDenoiseImgProps> = ({ goNext }) => {
 			reprocessWithDenoiseMethod();
 		}}>Reprocessar</Button>
 		<div className='processed-result-container'>
-			<img src={exam.originalImgLocationURL} alt='original' />
-			<img src={`${exam.processedImgLocationURL}?update=${updateImgPixel}`} alt='processed' />
+			{exam.originalImgLocationURL && <img src={exam.originalImgLocationURL} alt='original' />}
+			{exam.denoisedImgLocationURL && <img src={`${exam.denoisedImgLocationURL}?update=${updateImgPixel}`} alt='processed' />}
 		</div>
 		<div className='go-next-button'>
 			<Button variant='primary' onClick={() => {

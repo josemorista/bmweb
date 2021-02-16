@@ -21,7 +21,7 @@ export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goN
 	const { api } = useApi();
 	const { exam } = useExam();
 
-	const [updateImgPixel, setUpdateImgPixel] = useState(Math.round(Math.random() * 100));
+	const [updateImgPixel, setUpdateImgPixel] = useState(0);
 	const { data: applyImgSegmentationOptions, onSelectChange } = useForm({
 		initialState: {
 			method: 'otsu'
@@ -42,8 +42,8 @@ export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goN
 			reprocessWithImgSegmentationMethod();
 		}}>Reprocessar</Button>
 		<div className='processed-result-container'>
-			<img src={exam.originalImgLocationURL} alt='original' />
-			<img src={`${exam.processedImgLocationURL}?update=${updateImgPixel}`} alt='processed' />
+			{exam.equalizedImgLocationURL && <img src={exam.equalizedImgLocationURL} alt='equalized' />}
+			{exam.segmentedImgLocationURL && <img src={`${exam.segmentedImgLocationURL}?update=${updateImgPixel}`} alt='processed' />}
 		</div>
 		<div className='go-next-button'>
 			<Button variant='primary' onClick={() => {

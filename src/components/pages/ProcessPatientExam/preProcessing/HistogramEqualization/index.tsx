@@ -40,8 +40,8 @@ export const HistogramEqualization: React.FC<IHistogramEqualizationProps> = ({ g
 			reprocessWithEqualizeHistogramMethod();
 		}}>Reprocessar</Button>
 		<div className='processed-result-container'>
-			<img src={exam.originalImgLocationURL} alt='original' />
-			<img src={`${exam.processedImgLocationURL}?update=${updateImgPixel}`} alt='processed' />
+			{exam.denoisedImgLocationURL && <img src={exam.denoisedImgLocationURL} alt='original' />}
+			{exam.equalizedImgLocationURL && <img src={`${exam.equalizedImgLocationURL}?update=${updateImgPixel}`} alt='processed' />}
 		</div>
 		<div className='go-next-button'>
 			<Button variant='primary' onClick={() => {
