@@ -10,13 +10,15 @@ import { IUser } from '../../hooks/useAuth/models/IUser';
 import { useForm } from '../../hooks/useForm';
 import { useApi } from '../../hooks/useApi';
 
-type User = Pick<IUser, 'email' | 'firstName' | 'lastName' | 'password'>;
+type User = Pick<IUser, 'email' | 'firstName' | 'lastName' | 'password' | 'relatedInstitution' | 'job'>;
 
 const initialUserState: User = {
 	email: '',
 	firstName: '',
 	lastName: '',
-	password: ''
+	password: '',
+	job: '',
+	relatedInstitution: ''
 };
 
 export const SignUp: React.FC = () => {
@@ -51,6 +53,10 @@ export const SignUp: React.FC = () => {
 						<Input name='lastName' value={newUser.lastName} onChange={onUserInputChange} placeholder='Sobrenome' width='350px' type='text' />
 						<br />
 						<Input name='email' value={newUser.email} onChange={onUserInputChange} placeholder='Email' width='350px' type='email' />
+						<br />
+						<Input name='job' value={newUser.job || ''} onChange={onUserInputChange} placeholder='Profissão' width='350px' type='text' />
+						<br />
+						<Input name='relatedInstitution' value={newUser.relatedInstitution || ''} onChange={onUserInputChange} placeholder='Instituição' width='350px' type='text' />
 						<br />
 						<Input name='password' value={newUser.password} onChange={onUserInputChange} placeholder='Senha' width='350px' type='password' />
 						<br />

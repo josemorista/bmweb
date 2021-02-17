@@ -41,5 +41,9 @@ export const SignUpContainer = styled.div`
 			background-position: center;
 			background-size: cover;
 			background-repeat: none;
+
+			@media (max-width: 400px) {
+				display: none;
+			}
 	}
 `;
