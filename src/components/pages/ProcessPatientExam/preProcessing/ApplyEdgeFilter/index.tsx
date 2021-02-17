@@ -19,7 +19,7 @@ interface IApplyEdgeFilterProps {
 export const ApplyEdgeFilter: React.FC<IApplyEdgeFilterProps> = ({ goNext }) => {
 
 	const { api } = useApi();
-	const { exam } = useExam();
+	const { exam, revalidateExam } = useExam();
 
 	const [updateImgPixel, setUpdateImgPixel] = useState(0);
 	const { data: edgeFilterOptions, onSelectChange } = useForm({
@@ -30,8 +30,12 @@ export const ApplyEdgeFilter: React.FC<IApplyEdgeFilterProps> = ({ goNext }) => 
 
 	const reprocessWithEdgeFilterMethod = useCallback(async () => {
 		await api.patch(`exams/preProcessing/${exam.id}/applyEdgeFilter`, edgeFilterOptions);
-		setUpdateImgPixel(value => (value + 1));
-	}, [api, edgeFilterOptions, exam]);
+		if (!exam.edgedImgLocationURL) {
+			await revalidateExam();
+		} else {
+			setUpdateImgPixel(value => (value + 1));
+		}
+	}, [api, edgeFilterOptions, exam.id, exam.edgedImgLocationURL, revalidateExam]);
 
 	return <>
 		<h4 style={{ marginBottom: '2rem' }}>Selecione o filtro de aplicação para realce e futura detecção dos contornos das metástases na imagem:</h4>

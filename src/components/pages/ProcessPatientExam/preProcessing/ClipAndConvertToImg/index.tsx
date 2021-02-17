@@ -16,7 +16,7 @@ interface IClipAndConvertToImg {
 export const ClipAndConvertToImg: React.FC<IClipAndConvertToImg> = ({ goNext }) => {
 
 	const { api } = useApi();
-	const { exam } = useExam();
+	const { exam, revalidateExam } = useExam();
 	const [updateImgPixel, setUpdateImgPixel] = useState(0);
 
 	const { data: convertOptions, onInputChange } = useForm({
@@ -26,10 +26,13 @@ export const ClipAndConvertToImg: React.FC<IClipAndConvertToImg> = ({ goNext }) 
 	});
 
 	const reprocessImageWithConvertOptions = useCallback(async () => {
-
 		await api.post(`exams/preProcessing/${exam.id}/clipAndConvertToImage`, convertOptions);
-		setUpdateImgPixel(value => (value + 1));
-	}, [api, convertOptions, exam]);
+		if (!exam.originalImgLocationURL) {
+			await revalidateExam();
+		} else {
+			setUpdateImgPixel(value => (value + 1));
+		}
+	}, [api, convertOptions, exam.id, exam.originalImgLocationURL, revalidateExam]);
 
 	return <>
 		<h4>Selecione o limiar máximo para conversão do arquivo Dicom:</h4>

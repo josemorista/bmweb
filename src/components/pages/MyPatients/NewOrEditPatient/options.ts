@@ -14,4 +14,8 @@ export const booleanOptions = [{
 {
 	label: 'Não',
 	value: 'false'
+},
+{
+	label: 'Desconhecido',
+	value: 'null'
 }];

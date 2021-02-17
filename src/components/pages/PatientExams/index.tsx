@@ -30,7 +30,8 @@ export const PatientExams: React.FC = () => {
 	const categorizedExams: Record<string, Array<IExam>> = useMemo(() => {
 		const serializedExams = exams?.map(exam => ({ ...exam, createdAt: typeof exam.createdAt === 'string' ? new Date(exam.createdAt) : exam.createdAt })) || [];
 		return {
-			ant: serializedExams.filter(el => el.category === 'ant')
+			ant: serializedExams.filter(el => el.category === 'ant'),
+			post: serializedExams.filter(el => el.category === 'post')
 		};
 	}, [exams]);
 
@@ -59,7 +60,18 @@ export const PatientExams: React.FC = () => {
 			</section>
 			<section>
 				<h4>Exames processados  <b>(POSTERIOR)</b>:</h4>
-				<div className='exams-container'></div>
+				<div className='exams-container'>
+					<ul>
+						{categorizedExams['post'].map(exam => (<li key={exam.id} onClick={() => {
+							setExam(exam);
+							history.push(ROUTES.PROCESS_PATIENT_EXAM);
+						}}>
+							<AiOutlineFileDone size='7rem' />
+							<h6>{exam.label}</h6>
+							<p>{format(exam.createdAt, 'dd/MM/yyyy')}</p>
+						</li>))}
+					</ul>
+				</div>
 			</section>
 			<section>
 				<h4>Exames processados  <b>(CRÂNIO)</b>:</h4>

@@ -19,9 +19,9 @@ interface IHistogramEqualizationProps {
 export const HistogramEqualization: React.FC<IHistogramEqualizationProps> = ({ goNext }) => {
 
 	const { api } = useApi();
-	const { exam } = useExam();
+	const { exam, revalidateExam } = useExam();
 
-	const [updateImgPixel, setUpdateImgPixel] = useState(Math.round(Math.random() * 100));
+	const [updateImgPixel, setUpdateImgPixel] = useState(0);
 	const { data: equalizeHistogramOptions, onSelectChange } = useForm({
 		initialState: {
 			method: 'adapthist'
@@ -30,8 +30,12 @@ export const HistogramEqualization: React.FC<IHistogramEqualizationProps> = ({ g
 
 	const reprocessWithEqualizeHistogramMethod = useCallback(async () => {
 		await api.patch(`exams/preProcessing/${exam.id}/applyHistogramEqualization`, equalizeHistogramOptions);
-		setUpdateImgPixel(value => (value + 1));
-	}, [api, equalizeHistogramOptions, exam]);
+		if (!exam.equalizedImgLocationURL) {
+			await revalidateExam();
+		} else {
+			setUpdateImgPixel(value => (value + 1));
+		}
+	}, [api, equalizeHistogramOptions, exam.id, exam.equalizedImgLocationURL, revalidateExam]);
 
 	return <>
 		<h4 style={{ marginBottom: '2rem' }}>Selecione o método desejado para equalização do histograma:</h4>

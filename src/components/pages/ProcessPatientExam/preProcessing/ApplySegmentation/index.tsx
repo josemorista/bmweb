@@ -19,7 +19,7 @@ interface IApplyImgSegmentationProps {
 export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goNext }) => {
 
 	const { api } = useApi();
-	const { exam } = useExam();
+	const { exam, revalidateExam } = useExam();
 
 	const [updateImgPixel, setUpdateImgPixel] = useState(0);
 	const { data: applyImgSegmentationOptions, onSelectChange } = useForm({
@@ -30,8 +30,12 @@ export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goN
 
 	const reprocessWithImgSegmentationMethod = useCallback(async () => {
 		await api.patch(`exams/preProcessing/${exam.id}/applySegmentation`, applyImgSegmentationOptions);
-		setUpdateImgPixel(value => (value + 1));
-	}, [api, applyImgSegmentationOptions, exam]);
+		if (!exam.segmentedImgLocationURL) {
+			await revalidateExam();
+		} else {
+			setUpdateImgPixel(value => (value + 1));
+		}
+	}, [api, applyImgSegmentationOptions, exam.id, exam.segmentedImgLocationURL, revalidateExam]);
 
 	return <>
 		<h4 style={{ marginBottom: '2rem' }}>Selecione o método desejado para realizar a segmentação de áreas de intensidade intensiva:</h4>

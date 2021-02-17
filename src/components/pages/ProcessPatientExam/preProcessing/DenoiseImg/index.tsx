@@ -19,9 +19,9 @@ interface IDenoiseImgProps {
 export const DenoiseImg: React.FC<IDenoiseImgProps> = ({ goNext }) => {
 
 	const { api } = useApi();
-	const { exam } = useExam();
+	const { exam, revalidateExam } = useExam();
 
-	const [updateImgPixel, setUpdateImgPixel] = useState(Math.round(Math.random() * 100));
+	const [updateImgPixel, setUpdateImgPixel] = useState(0);
 	const { data: denoiseOptions, onSelectChange } = useForm({
 		initialState: {
 			method: 'median'
@@ -30,8 +30,12 @@ export const DenoiseImg: React.FC<IDenoiseImgProps> = ({ goNext }) => {
 
 	const reprocessWithDenoiseMethod = useCallback(async () => {
 		await api.patch(`exams/preProcessing/${exam.id}/applyDenoiseFilter`, denoiseOptions);
-		setUpdateImgPixel(value => (value + 1));
-	}, [api, denoiseOptions, exam]);
+		if (!exam.denoisedImgLocationURL) {
+			await revalidateExam();
+		} else {
+			setUpdateImgPixel(value => (value + 1));
+		}
+	}, [api, denoiseOptions, exam.id, exam.denoisedImgLocationURL, revalidateExam]);
 
 	return <>
 		<h4 style={{ marginBottom: '2rem' }}>Selecione o método desejado para remoção de ruídos da imagem:</h4>

@@ -48,7 +48,7 @@ export const NewOrEditPatient = forwardRef<INewOrEditPatientHandle, INewOrEditPa
 		try {
 			const { data } = await api.get(`/patients/${patientId}`);
 			formType.current = 'edit';
-			setNewPatient({ ...data, birthDate: new Date(data.birthDate) });
+			setNewPatient({ ...data, birthDate: data.birthDate && new Date(data.birthDate) });
 			setFormEnabled(false);
 		} catch (error) {
 			console.error(error);

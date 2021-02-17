@@ -16,6 +16,10 @@ import { ROUTES } from '../../../../../consts';
 const categoryOptions = [{
 	value: 'ant',
 	label: 'Anterior'
+},
+{
+	value: 'post',
+	label: 'Posterior'
 }];
 
 const initialExamState: IExam = {
