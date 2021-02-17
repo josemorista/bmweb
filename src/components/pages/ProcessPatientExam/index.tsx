@@ -9,7 +9,7 @@ import { HistogramEqualization } from './preProcessing/HistogramEqualization';
 import { ProcessPatientExamContainer } from './styles';
 
 const currentStepsLabels = [
-	'Limiares de segmentação',
+	'Transformação linear',
 	'Remoção de ruídos',
 	'Equalização de histograma',
 	'Segmentação',

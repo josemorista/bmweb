@@ -9,6 +9,10 @@ const edgeFilterMethodOptions = [
 	{
 		label: 'Sobel',
 		value: 'sobel'
+	},
+	{
+		label: 'Roberts',
+		value: 'roberts'
 	}
 ];
 
