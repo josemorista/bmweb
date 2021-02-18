@@ -27,8 +27,8 @@ export const ClipAndConvertToImg: React.FC<IClipAndConvertToImg> = ({ goNext }) 
 
 	const reprocessImageWithConvertOptions = useCallback(async () => {
 		await api.post(`exams/preProcessing/${exam.id}/clipAndConvertToImage`, convertOptions);
-		await api.post(`exams/preProcession/${exam.id}/calculateHistograms`, {
-			processHistogramFrom: 'original'
+		await api.post(`exams/preProcessing/${exam.id}/calculateHistograms`, {
+			calculateHistogramFrom: 'original'
 		});
 		if (!exam.originalImgLocationURL) {
 			await revalidateExam();

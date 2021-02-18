@@ -30,8 +30,8 @@ export const HistogramEqualization: React.FC<IHistogramEqualizationProps> = ({ g
 
 	const reprocessWithEqualizeHistogramMethod = useCallback(async () => {
 		await api.patch(`exams/preProcessing/${exam.id}/applyHistogramEqualization`, equalizeHistogramOptions);
-		await api.post(`exams/preProcession/${exam.id}/calculateHistograms`, {
-			processHistogramFrom: 'equalized'
+		await api.post(`exams/preProcessing/${exam.id}/calculateHistograms`, {
+			calculateHistogramFrom: 'equalized'
 		});
 		if (!exam.equalizedImgLocationURL) {
 			await revalidateExam();

@@ -65,7 +65,7 @@ export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goN
 			</div>
 			<div className='histogram-container'>
 				<section>
-					<p>Histograma de atividade:</p>
+					<p>Histograma de atividade pós equalização:</p>
 					<img src={exam.equalizedImgHistogramLocationURL} alt='histograma' />
 				</section>
 			</div>
