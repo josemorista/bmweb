@@ -42,7 +42,7 @@ export const ProcessPatientExamContainer = styled.div`
 			img {
 				max-width: 100%;
 				height: auto;
-				max-height: 35rem;
+				max-height: 30rem;
 			}
 			> section {
 				margin-right: 2rem;

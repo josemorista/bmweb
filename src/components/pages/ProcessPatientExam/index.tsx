@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useExam } from '../../hooks/useExam';
 import { AppBar } from '../../partials/AppBar';
+import { ResumeSegmentation } from './learning/ResumeSegmentation';
 import { ApplyEdgeFilter } from './preProcessing/ApplyEdgeFilter';
 import { ApplyImgSegmentation } from './preProcessing/ApplySegmentation';
 import { ClipAndConvertToImg } from './preProcessing/ClipAndConvertToImg';
@@ -13,7 +14,8 @@ const currentStepsLabels = [
 	'Remoção de ruídos',
 	'Equalização de histograma',
 	'Segmentação',
-	'Filtros de contorno'
+	'Filtros de contorno',
+	'Resumo da detecção'
 ];
 
 export const ProcessPatientExam: React.FC = () => {
@@ -30,7 +32,8 @@ export const ProcessPatientExam: React.FC = () => {
 		<DenoiseImg goNext={goNext} key={'dn'}></DenoiseImg>,
 		<HistogramEqualization goNext={goNext} key={'eq'}></HistogramEqualization>,
 		<ApplyImgSegmentation goNext={goNext} key={'sg'}></ApplyImgSegmentation>,
-		<ApplyEdgeFilter goNext={goNext} key={'ed'}></ApplyEdgeFilter>
+		<ApplyEdgeFilter goNext={goNext} key={'ed'}></ApplyEdgeFilter>,
+		<ResumeSegmentation key={'res'}></ResumeSegmentation>
 	], [goNext]);
 
 	return <ProcessPatientExamContainer>
