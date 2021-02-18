@@ -19,6 +19,8 @@ export interface IExam {
 	edgedImgLocationURL: string | null;
 	originalImgLocation: string | null;
 	originalImgLocationURL: string | null;
+	equalizedImgHistogramLocationURL: string;
+	originalImgHistogramLocationURL: string;
 	dicomFileLocation: string;
 	createdAt: Date;
 	updatedAt: Date;

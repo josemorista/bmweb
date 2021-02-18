@@ -47,7 +47,7 @@ export const MyPatients: React.FC = () => {
 							<div className="patient-list-thumbnail">
 								<h1>{patient.name[0]}{patient.name[1]}</h1>
 							</div>
-							<h6>{patient.name.slice(0, 20)}{patient.name.length > 20 && '...'}</h6>
+							<h6>{patient.name.slice(0, 15)}{patient.name.length > 15 && '...'}</h6>
 						</li>
 					))}
 				</ul>

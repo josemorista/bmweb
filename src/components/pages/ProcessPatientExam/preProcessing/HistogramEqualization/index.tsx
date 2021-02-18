@@ -30,6 +30,9 @@ export const HistogramEqualization: React.FC<IHistogramEqualizationProps> = ({ g
 
 	const reprocessWithEqualizeHistogramMethod = useCallback(async () => {
 		await api.patch(`exams/preProcessing/${exam.id}/applyHistogramEqualization`, equalizeHistogramOptions);
+		await api.post(`exams/preProcession/${exam.id}/calculateHistograms`, {
+			processHistogramFrom: 'equalized'
+		});
 		if (!exam.equalizedImgLocationURL) {
 			await revalidateExam();
 		} else {
@@ -40,6 +43,16 @@ export const HistogramEqualization: React.FC<IHistogramEqualizationProps> = ({ g
 	return <>
 		<h4 style={{ marginBottom: '2rem' }}>Selecione o método desejado para equalização do histograma:</h4>
 		<Select width='40rem' onChange={onSelectChange} name='method' options={equalizeHistogramMethodOptions}></Select>
+		<div className='histogram-container'>
+			<section>
+				<p>Histograma de atividade:</p>
+				<img src={exam.originalImgHistogramLocationURL} alt='histograma' />
+			</section>
+			<section>
+				<p>Histograma pós-equalização:</p>
+				<img src={`${exam.equalizedImgHistogramLocationURL}?update=${updateImgPixel}`} alt='histograma' />
+			</section>
+		</div>
 		<Button variant='primary' onClick={() => {
 			reprocessWithEqualizeHistogramMethod();
 		}}>Reprocessar</Button>

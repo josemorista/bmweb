@@ -8,6 +8,7 @@ export const NewOrEditPatientContainer = styled.div`
 		
 		h3  {
 			color: ${({ theme }) => theme.colors.primary.main};
+			margin: 1.5rem 0;
 		}
 
 		.patient-options-buttons {

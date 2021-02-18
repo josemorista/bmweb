@@ -10,7 +10,7 @@ interface ISelectProps extends Omit<Props, 'value' | 'options'> {
 	disabled?: boolean;
 	placeholder?: string;
 	onChange?: any;
-	value?: string | number | boolean;
+	value?: string | number | boolean | null;
 	options: any;
 }
 
@@ -19,12 +19,12 @@ export const Select: React.FC<ISelectProps> = ({ width, label, options, placehol
 
 	const currentValue = useMemo(() => {
 		if (value !== undefined) {
-			return options?.find((el: any) => el.value === String(value));
+			return options?.find((el: any) => el.value === value);
 		}
 	}, [value, options]);
 
 	if (disabled) {
-		return <Input disabled value={currentValue.label} label={label} width={width} placeholder={placeholder} />;
+		return <Input disabled value={currentValue?.label || ''} label={label} width={width} placeholder={placeholder} />;
 	}
 
 	return <SelectContainer width={width || '100%'}>

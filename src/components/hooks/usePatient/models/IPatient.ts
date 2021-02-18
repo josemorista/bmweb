@@ -3,11 +3,11 @@ export interface IPatient {
 	name: string;
 	birthDate: Date;
 	sex: 'M' | 'F';
-	previousBoneLesions: boolean;
+	previousBoneLesions: boolean | null;
 	previousBoneLesionsLocations?: Array<string>;
-	previousQt: boolean;
-	previousRt: boolean;
-	previousCancerDiagnosis: boolean;
+	previousQt: boolean | null;
+	previousRt: boolean | null;
+	previousCancerDiagnosis: boolean | null;
 	previousCancerDiagnosisType?: string;
 	observations: string;
 }

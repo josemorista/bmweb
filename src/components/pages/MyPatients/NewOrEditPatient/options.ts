@@ -9,13 +9,13 @@ export const sexOptions = [{
 
 export const booleanOptions = [{
 	label: 'Sim',
-	value: 'true'
+	value: true
 },
 {
 	label: 'Não',
-	value: 'false'
+	value: false
 },
 {
 	label: 'Desconhecido',
-	value: 'null'
+	value: null
 }];

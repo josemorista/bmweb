@@ -35,5 +35,19 @@ export const ProcessPatientExamContainer = styled.div`
 			display: flex;
 			justify-content: flex-end;
 		}
+
+		.histogram-container {
+			display: flex;
+			flex-wrap: wrap;
+			img {
+				max-width: 100%;
+				height: auto;
+				max-height: 35rem;
+			}
+			> section {
+				margin-right: 2rem;
+			}
+			margin-bottom: 2rem;
+		}
 	}
 `;

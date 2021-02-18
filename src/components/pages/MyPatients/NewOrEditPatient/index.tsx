@@ -25,10 +25,10 @@ export interface INewOrEditPatientHandle {
 const initialPatientState: IPatient = {
 	name: '',
 	observations: '',
-	previousBoneLesions: false,
-	previousCancerDiagnosis: false,
-	previousQt: false,
-	previousRt: false,
+	previousBoneLesions: null,
+	previousCancerDiagnosis: null,
+	previousQt: null,
+	previousRt: null,
 	sex: 'M',
 	birthDate: new Date()
 } as IPatient;
