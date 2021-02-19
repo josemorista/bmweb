@@ -78,10 +78,10 @@ export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goN
 			{exam.equalizedImgLocationURL && <img src={exam.equalizedImgLocationURL} alt='equalized' />}
 			{exam.segmentedImgLocationURL && <img src={`${exam.segmentedImgLocationURL}?update=${updateImgPixel}`} alt='processed' />}
 		</div>
-		<div className='go-next-button'>
+		{exam.segmentedImgLocationURL && <div className='go-next-button'>
 			<Button variant='primary' onClick={() => {
 				goNext();
 			}}>Avançar</Button>
-		</div>
+		</div>}
 	</>;
 };

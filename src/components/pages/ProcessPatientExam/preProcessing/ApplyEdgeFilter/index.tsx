@@ -51,10 +51,10 @@ export const ApplyEdgeFilter: React.FC<IApplyEdgeFilterProps> = ({ goNext }) => 
 			{exam.segmentedImgLocationURL && <img src={exam.segmentedImgLocationURL} alt='segmented' />}
 			{exam.edgedImgLocationURL && <img src={`${exam.edgedImgLocationURL}?update=${updateImgPixel}`} alt='processed' />}
 		</div>
-		<div className='go-next-button'>
+		{exam.edgedImgLocationURL && <div className='go-next-button'>
 			<Button variant='primary' onClick={() => {
 				goNext();
 			}}>Avançar</Button>
-		</div>
+		</div>}
 	</>;
 };

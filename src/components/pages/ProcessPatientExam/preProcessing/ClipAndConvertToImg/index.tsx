@@ -47,15 +47,15 @@ export const ClipAndConvertToImg: React.FC<IClipAndConvertToImg> = ({ goNext }) 
 		</datalist>
 		<Button variant='primary' onClick={() => {
 			reprocessImageWithConvertOptions();
-		}}>Reprocessar</Button>
+		}}>Processar</Button>
 		<div className='processed-result-container'>
 			{exam.originalImgLocationURL && <img src={`${exam.originalImgLocationURL}?update=${updateImgPixel}`} alt='' />}
 		</div>
 
-		<div className='go-next-button'>
+		{exam.originalImgLocationURL && <div className='go-next-button'>
 			<Button variant='primary' onClick={() => {
 				goNext();
 			}}>Avançar</Button>
-		</div>
+		</div>}
 	</>;
 };

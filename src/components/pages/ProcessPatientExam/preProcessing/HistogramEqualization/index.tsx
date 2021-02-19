@@ -48,10 +48,10 @@ export const HistogramEqualization: React.FC<IHistogramEqualizationProps> = ({ g
 				<p>Histograma de atividade:</p>
 				<img src={exam.originalImgHistogramLocationURL} alt='histograma' />
 			</section>
-			<section>
+			{exam.equalizedImgLocationURL && <section>
 				<p>Histograma pós-equalização:</p>
 				<img src={`${exam.equalizedImgHistogramLocationURL}?update=${updateImgPixel}`} alt='histograma' />
-			</section>
+			</section>}
 		</div>
 		<Button variant='primary' onClick={() => {
 			reprocessWithEqualizeHistogramMethod();
@@ -60,10 +60,10 @@ export const HistogramEqualization: React.FC<IHistogramEqualizationProps> = ({ g
 			{exam.denoisedImgLocationURL && <img src={exam.denoisedImgLocationURL} alt='original' />}
 			{exam.equalizedImgLocationURL && <img src={`${exam.equalizedImgLocationURL}?update=${updateImgPixel}`} alt='processed' />}
 		</div>
-		<div className='go-next-button'>
+		{exam.equalizedImgLocationURL && <div className='go-next-button'>
 			<Button variant='primary' onClick={() => {
 				goNext();
 			}}>Avançar</Button>
-		</div>
+		</div>}
 	</>;
 };

@@ -108,9 +108,9 @@ export const NewOrEditPatient = forwardRef<INewOrEditPatientHandle, INewOrEditPa
 
 			<Input name='name' value={newPatient.name || ''} onChange={onInputChange} type='text' disabled={!formEnabled} label='Nome do paciente'></Input>
 
-			<Input name='birthDate' value={newPatient.birthDate instanceof Date ? format(newPatient.birthDate, 'yyyy-MM-dd') : newPatient.birthDate} onChange={(e) => {
+			{/*<Input name='birthDate' value={newPatient.birthDate instanceof Date ? format(newPatient.birthDate, 'yyyy-MM-dd') : newPatient.birthDate} onChange={(e) => {
 				setNewPatient({ ...newPatient, birthDate: new Date(e.target.value) });
-			}} width='200px' disabled={!formEnabled} type='date' label='Data de nascimento'></Input>
+			}} width='200px' disabled={!formEnabled} type='date' label='Data de nascimento'></Input>*/}
 
 			<Select name='sex' value={newPatient.sex} disabled={!formEnabled} onChange={onSelectChange} width='200px' options={sexOptions} label='Sexo do paciente' />
 
