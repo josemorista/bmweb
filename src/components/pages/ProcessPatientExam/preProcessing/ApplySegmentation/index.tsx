@@ -29,7 +29,7 @@ export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goN
 	const [updateImgPixel, setUpdateImgPixel] = useState(0);
 	const { data: applyImgSegmentationOptions, onSelectChange, onInputChange } = useForm({
 		initialState: {
-			method: 'randomWalker',
+			method: 'otsu',
 			randomWalkerParamsMarker0: 0.2,
 			randomWalkerParamsMarker1: 0.5
 		}

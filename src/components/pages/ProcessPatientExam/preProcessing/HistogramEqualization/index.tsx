@@ -9,6 +9,10 @@ const equalizeHistogramMethodOptions = [
 	{
 		label: 'Equalização adaptativa',
 		value: 'adapthist'
+	},
+	{
+		label: 'Não aplicar',
+		value: 'none'
 	}
 ];
 
@@ -24,7 +28,7 @@ export const HistogramEqualization: React.FC<IHistogramEqualizationProps> = ({ g
 	const [updateImgPixel, setUpdateImgPixel] = useState(0);
 	const { data: equalizeHistogramOptions, onSelectChange } = useForm({
 		initialState: {
-			method: 'adapthist'
+			method: 'none'
 		}
 	});
 
@@ -42,7 +46,7 @@ export const HistogramEqualization: React.FC<IHistogramEqualizationProps> = ({ g
 
 	return <>
 		<h4 style={{ marginBottom: '2rem' }}>Selecione o método desejado para equalização do histograma:</h4>
-		<Select width='40rem' onChange={onSelectChange} name='method' options={equalizeHistogramMethodOptions}></Select>
+		<Select width='40rem' onChange={onSelectChange} value={equalizeHistogramOptions.method} name='method' options={equalizeHistogramMethodOptions}></Select>
 		<div className='histogram-container'>
 			<section>
 				<p>Histograma de atividade:</p>
