@@ -3,12 +3,6 @@ export interface IExam {
 	label: string;
 	category: 'ant' | 'post' | 'cra';
 	patientId: string;
-	maxDicomValue: number;
-	currentStep: number;
-	denoiseFilter: 'median' | null;
-	histogramEqualization: 'adapthist' | null;
-	edgeFilter: 'roberts' | 'sobel' | 'prewitt' | 'scharr' | null;
-	segmentationMethod: 'otsu' | 'randomWalker' | null;
 	denoisedImgLocation: string | null;
 	denoisedImgLocationURL: string | null;
 	equalizedImgLocation: string | null;

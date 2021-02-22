@@ -39,7 +39,7 @@ export const DenoiseImg: React.FC<IDenoiseImgProps> = ({ goNext }) => {
 
 	return <>
 		<h4 style={{ marginBottom: '2rem' }}>Selecione o método desejado para remoção de ruídos da imagem:</h4>
-		<Select width='40rem' onChange={onSelectChange} name='method' options={denoiseMethodOptions}></Select>
+		<Select width='40rem' onChange={onSelectChange} value={denoiseOptions.method} name='method' options={denoiseMethodOptions}></Select>
 		<Button variant='primary' onClick={() => {
 			reprocessWithDenoiseMethod();
 		}}>Reprocessar</Button>

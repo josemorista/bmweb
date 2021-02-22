@@ -20,7 +20,6 @@ export function useForm<T>({ initialState }: { initialState: T }) {
 			let parsed: string | boolean | number = value;
 			value === 'true' && (parsed = true);
 			value === 'false' && (parsed = false);
-			console.log(typeof parsed, name);
 			setData(values => ({ ...values, [name]: parsed }));
 		}
 	}, []);

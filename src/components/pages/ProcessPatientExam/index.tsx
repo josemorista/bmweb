@@ -21,7 +21,7 @@ const currentStepsLabels = [
 export const ProcessPatientExam: React.FC = () => {
 
 	const { exam } = useExam();
-	const [currentStep, setCurrentStep] = useState(exam.currentStep);
+	const [currentStep, setCurrentStep] = useState(0);
 
 	const goNext = useCallback(() => {
 		setCurrentStep(value => value + 1);

@@ -21,7 +21,7 @@ export const ClipAndConvertToImg: React.FC<IClipAndConvertToImg> = ({ goNext }) 
 
 	const { data: convertOptions, onInputChange } = useForm({
 		initialState: {
-			maxDicomValue: exam.maxDicomValue
+			maxDicomValue: 150
 		}
 	});
 
