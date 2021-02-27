@@ -6,13 +6,11 @@ import { ApplyEdgeFilter } from './preProcessing/ApplyEdgeFilter';
 import { ApplyImgSegmentation } from './preProcessing/ApplySegmentation';
 import { ClipAndConvertToImg } from './preProcessing/ClipAndConvertToImg';
 import { DenoiseImg } from './preProcessing/DenoiseImg';
-import { HistogramEqualization } from './preProcessing/HistogramEqualization';
 import { ProcessPatientExamContainer } from './styles';
 
 const currentStepsLabels = [
 	'Transformação linear',
 	'Remoção de ruídos',
-	'Equalização de histograma',
 	'Segmentação',
 	'Filtros de contorno',
 	'Resumo da detecção'
@@ -30,7 +28,6 @@ export const ProcessPatientExam: React.FC = () => {
 	const avaiableSteps = useMemo(() => [
 		<ClipAndConvertToImg goNext={goNext} key={'cp'}></ClipAndConvertToImg>,
 		<DenoiseImg goNext={goNext} key={'dn'}></DenoiseImg>,
-		<HistogramEqualization goNext={goNext} key={'eq'}></HistogramEqualization>,
 		<ApplyImgSegmentation goNext={goNext} key={'sg'}></ApplyImgSegmentation>,
 		<ApplyEdgeFilter goNext={goNext} key={'ed'}></ApplyEdgeFilter>,
 		<ResumeSegmentation key={'res'}></ResumeSegmentation>
