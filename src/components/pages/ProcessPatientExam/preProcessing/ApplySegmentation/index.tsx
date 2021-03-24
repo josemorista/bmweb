@@ -67,7 +67,8 @@ export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goN
 			randomWalkerParamsMarker0: 0.2,
 			randomWalkerParamsMarker1: 0.5,
 			cumulative: false,
-			kMeansClusters: 15
+			kMeansClusters: 15,
+			kMeansThresholdCluster: 6
 		}
 	});
 
@@ -76,7 +77,8 @@ export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goN
 			method: applyImgSegmentationOptions.method,
 			cumulative: applyImgSegmentationOptions.cumulative,
 			kMeansParams: {
-				clusters: applyImgSegmentationOptions.kMeansClusters
+				clusters: applyImgSegmentationOptions.kMeansClusters,
+				thresholdCluster: applyImgSegmentationOptions.kMeansThresholdCluster
 			},
 			randomWalkerParams: {
 				markers: [
@@ -116,6 +118,7 @@ export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goN
 			applyImgSegmentationOptions.method === 'kMeans' && <div>
 				<br />
 				<Input step={1} label='Quantidade de clusters' width='100px' type='number' name='kMeansClusters' value={applyImgSegmentationOptions.kMeansClusters} onChange={onInputChange} />
+				<Input step={1} label='Cluster Threshold' width='100px' type='number' name='kMeansThresholdCluster' value={applyImgSegmentationOptions.kMeansThresholdCluster} onChange={onInputChange} />
 			</div>
 		}
 		<Button variant='primary' onClick={() => {
