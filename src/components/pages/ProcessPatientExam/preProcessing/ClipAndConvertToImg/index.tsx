@@ -1,12 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from '../../../../design/Button';
-import { Input } from '../../../../design/Input';
 import { useApi } from '../../../../hooks/useApi';
 import { useExam } from '../../../../hooks/useExam';
-import { useForm } from '../../../../hooks/useForm';
 
-const maxRange = 1000;
-const step = 50;
 
 interface IClipAndConvertToImg {
 	goNext(): void;

@@ -54,12 +54,12 @@ export const ApplyImgSegmentation: React.FC<IApplyImgSegmentationProps> = ({ goN
 	}, [api, exam.id]);
 
 	useEffect(() => {
-		if (exam.segmentedImgLocation) {
+		if (exam.segmentedImgLocationURL) {
 			revalidateHistogram('segmented');
 		} else {
 			revalidateHistogram('denoised');
 		}
-	}, [revalidateHistogram, exam.segmentedImgLocation]);
+	}, [revalidateHistogram, exam.segmentedImgLocationURL]);
 
 	const { data: applyImgSegmentationOptions, onSelectChange, onInputChange } = useForm({
 		initialState: {

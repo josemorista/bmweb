@@ -51,3 +51,53 @@ export const ProcessPatientExamContainer = styled.div`
 		}
 	}
 `;
+
+export const DetectionsClassificationContainer = styled.div`
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+
+	@media (max-width: 600px) {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	> section {
+		ul {
+			max-width: 500px;
+			max-height: 100%;
+			overflow-y: auto;
+
+			margin-top: 1rem;
+			padding: 1rem;
+
+			border: 1px solid ${({ theme }) => theme.colors.primary.main};
+			border-radius: 8px;
+		}
+
+		li {
+			cursor: pointer;
+
+			padding: 1rem;
+
+			background-color: ${({ theme }) => theme.colors.secondary.main};
+			* {
+				color: #000;
+			}
+			
+			&+li {
+				margin-top: 1rem;
+			}
+
+			&.inactive {
+				filter: opacity(0.5);
+				cursor: default;
+			}
+
+			> h4 {
+				margin-bottom: 1rem;
+				color: ${({ theme }) => theme.colors.primary.main};
+			}
+		}
+	}
+`;

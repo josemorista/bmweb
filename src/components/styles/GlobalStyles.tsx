@@ -28,6 +28,7 @@ export const GlobalStyles = createGlobalStyle`
 
 	p,
 	label,
+	strong,
 	input,
 	span,
 	div,

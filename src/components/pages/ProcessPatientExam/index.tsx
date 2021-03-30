@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useExam } from '../../hooks/useExam';
 import { AppBar } from '../../partials/AppBar';
+import { DetectionsClassifications } from './learning/DetectionsClassification';
 import { ResumeSegmentation } from './learning/ResumeSegmentation';
 import { ApplyEdgeFilter } from './preProcessing/ApplyEdgeFilter';
 import { ApplyImgSegmentation } from './preProcessing/ApplySegmentation';
@@ -13,7 +14,8 @@ const currentStepsLabels = [
 	'Remoção de ruídos',
 	'Segmentação',
 	'Filtros de contorno',
-	'Resumo da detecção'
+	'Resumo da detecção',
+	'Classificação de detecções'
 ];
 
 export const ProcessPatientExam: React.FC = () => {
@@ -30,7 +32,8 @@ export const ProcessPatientExam: React.FC = () => {
 		<DenoiseImg goNext={goNext} key={'dn'}></DenoiseImg>,
 		<ApplyImgSegmentation goNext={goNext} key={'sg'}></ApplyImgSegmentation>,
 		<ApplyEdgeFilter goNext={goNext} key={'ed'}></ApplyEdgeFilter>,
-		<ResumeSegmentation key={'res'}></ResumeSegmentation>
+		<ResumeSegmentation key={'res'} goNext={goNext}></ResumeSegmentation>,
+		<DetectionsClassifications key={'cla'}></DetectionsClassifications>
 	], [goNext]);
 
 	return <ProcessPatientExamContainer>

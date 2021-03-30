@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from '../../../design/Button';
 import { useApi } from '../../../hooks/useApi';
 import { useExam } from '../../../hooks/useExam';
 
+interface IResumeSegmentationProps {
+	goNext(): void;
+}
 
-export const ResumeSegmentation: React.FC = () => {
+export const ResumeSegmentation: React.FC<IResumeSegmentationProps> = ({ goNext }) => {
 
 	const { api } = useApi();
 	const { exam, revalidateExam } = useExam();
@@ -21,6 +25,11 @@ export const ResumeSegmentation: React.FC = () => {
 	return <>
 		<div className='processed-result-container'>
 			{exam.resumeSegmentationImgLocationURL && <img src={`${exam.resumeSegmentationImgLocationURL}?version=${updateImgPixel}`} alt='segmented' />}
+		</div>
+		<div className='go-next-button'>
+			<Button variant='primary' onClick={() => {
+				goNext();
+			}}>Avançar</Button>
 		</div>
 	</>;
 };
