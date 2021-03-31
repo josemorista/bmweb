@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { Button } from '../../../design/Button';
 import { useApi } from '../../../hooks/useApi';
 import { useExam } from '../../../hooks/useExam';
 import { IExamDetection } from '../../../hooks/useExam/models/IExamDetection';
@@ -62,14 +63,19 @@ export const DetectionsClassifications: FC = () => {
 							setSelectedDetection(detection);
 						}}>
 						<h4>{detection.revisedClassification?.name || detection.automaticClassification?.name}</h4>
-						{selectedDetection?.id === detection.id && <div className="details">
-							<p><strong>Área:</strong> {detection.area}mm²</p>
-							<p><strong>Perímetro:</strong> {detection.perimeter}mm</p>
-							<p><strong>Posição:</strong> ({detection.centroidX}, {detection.centroidY})</p>
-							<p><strong>Proporção:</strong> {detection.aspectRatio}</p>
-							<p><strong>Excentricidade:</strong> {detection.eccentricity}</p>
-							<p><strong>Extensão relativa:</strong> {detection.extent}</p>
-						</div>}
+						{selectedDetection?.id === detection.id &&
+							<div className="details">
+								<p><strong>Área:</strong> {detection.area}mm²</p>
+								<p><strong>Perímetro:</strong> {detection.perimeter}mm</p>
+								<p><strong>Posição:</strong> ({detection.centroidX}, {detection.centroidY})</p>
+								<p><strong>Proporção:</strong> {detection.aspectRatio}</p>
+								<p><strong>Excentricidade:</strong> {detection.eccentricity}</p>
+								<p><strong>Extensão relativa:</strong> {detection.extent}</p>
+								<section className="details-buttons">
+									<Button variant='error'>Excluir</Button>
+								</section>
+							</div>
+						}
 					</li>
 				))}
 			</ul>

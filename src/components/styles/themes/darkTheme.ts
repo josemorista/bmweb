@@ -5,11 +5,15 @@ export const darkTheme = {
 			contrast: '#fff'
 		},
 		secondary: {
-			main: '#fff',
+			main: '#ffffff',
 			contrast: '#0F62AC'
 		},
 		background: {
 			main: '#312E38'
+		},
+		error: {
+			main: 'red',
+			contrast: '#ffffff'
 		}
 	}
 };

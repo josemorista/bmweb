@@ -9,6 +9,6 @@ export const AppBarContainer = styled.header`
 	background-color: ${({ theme }) => theme.colors.primary.main};
 	> ${Button} {
 		max-height: 5rem;
-		margin: 0.5rem;
+		margin-right: 0.5rem;
 	}
 `;

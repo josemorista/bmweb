@@ -65,7 +65,7 @@ export const DetectionsClassificationContainer = styled.div`
 	> section {
 		ul {
 			max-width: 500px;
-			max-height: 100%;
+			max-height: 60%;
 			overflow-y: auto;
 
 			margin-top: 1rem;
@@ -77,11 +77,14 @@ export const DetectionsClassificationContainer = styled.div`
 
 		li {
 			cursor: pointer;
+			
+			transition: filter 0.2s;
 
 			padding: 1rem;
 
 			background-color: ${({ theme }) => theme.colors.secondary.main};
-			* {
+			
+			p,strong {
 				color: #000;
 			}
 			
@@ -91,12 +94,19 @@ export const DetectionsClassificationContainer = styled.div`
 
 			&.inactive {
 				filter: opacity(0.5);
-				cursor: default;
+				&:hover {
+					filter: opacity(0.8);
+				}
 			}
 
 			> h4 {
 				margin-bottom: 1rem;
 				color: ${({ theme }) => theme.colors.primary.main};
+			}
+
+			.details-buttons {
+				display: flex;
+				justify-content: flex-end;
 			}
 		}
 	}
