@@ -14,12 +14,14 @@ export const ResumeSegmentation: React.FC<IResumeSegmentationProps> = ({ goNext 
 	const [updateImgPixel, setUpdateImgPixel] = useState(0);
 
 	useEffect(() => {
-		api.post(`/exams/learning/${exam.id}/extractDetections`).then(() => {
-			revalidateExam().then(() => {
-				setUpdateImgPixel(value => (value + 1));
+		if (exam.currentStep !== 'resume' && exam.currentStep !== 'classify') {
+			api.post(`/exams/learning/${exam.id}/extractDetections`).then(() => {
+				revalidateExam().then(() => {
+					setUpdateImgPixel(value => (value + 1));
+				});
 			});
-		});
-	}, [api, exam.id, revalidateExam]);
+		}
+	}, [api, exam.id, revalidateExam, exam.currentStep]);
 
 
 	return <>

@@ -4,7 +4,9 @@ export interface IExam {
 	id: string;
 	label: string;
 	category: 'ant' | 'post' | 'cra';
+	currentStep: 'initial' | 'convertAndClip' | 'denoise' | 'segment' | 'edging' | 'resume' | 'classify';
 	patientId: string;
+
 	denoisedImgLocationURL: string | null;
 	segmentedImgLocationURL: string | null;
 	edgedImgLocationURL: string | null;

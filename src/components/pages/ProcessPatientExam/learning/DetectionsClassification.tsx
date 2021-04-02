@@ -1,31 +1,53 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '../../../design/Button';
 import { useApi } from '../../../hooks/useApi';
 import { useExam } from '../../../hooks/useExam';
 import { IExamDetection } from '../../../hooks/useExam/models/IExamDetection';
+import { IExamDetectionClassification } from '../../../hooks/useExam/models/IExamDetectionClassification';
+import { useFetch } from '../../../hooks/useFetch';
 import { DetectionsClassificationContainer } from '../styles';
 
 export const DetectionsClassifications: FC = () => {
 	const { api } = useApi();
-	const { exam, revalidateExam } = useExam();
+	const { exam, revalidateExam, setExam } = useExam();
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const imgRef = useRef<HTMLImageElement>(null);
 	const img2Ref = useRef<HTMLImageElement>(null);
 	const [selectedDetection, setSelectedDetection] = useState<IExamDetection | null>(null);
+
+	const { data: examDetectionsClassifications } = useFetch<Array<IExamDetectionClassification>>('/exams/learning/detectionsClassifications', {
+		timeout: 3000
+	});
+
 	const examDetections = useMemo(() => {
 		return {
-			totalArea: exam.examDetections.reduce((acum, detection) => detection.area + acum, 0),
-			qnt: exam.examDetections.length,
-			detections: exam.examDetections.sort((a, b) => b.area - a.area)
-				.map(el => ({ ...el, centroidX: Math.round(el.centroidX), centroidY: Math.round(el.centroidY) }))
+			totalArea: exam.examDetections?.reduce((acum, detection) => detection.area + acum, 0),
+			qnt: exam.examDetections?.length,
+			detections: (exam.examDetections?.sort((a, b) => b.area - a.area)?.map(el => ({ ...el, centroidX: Math.round(el.centroidX), centroidY: Math.round(el.centroidY) }))) || []
 		};
 	}, [exam.examDetections]);
 
-	useEffect(() => {
-		api.post(`/exams/learning/${exam.id}/classify`).then(() => {
-			revalidateExam();
+	const deleteExamDetection = useCallback(async (detectionId: string) => {
+		await api.delete(`/exams/learning/${exam.id}/detections/${detectionId}`);
+		setExam(values => ({
+			...values,
+			examDetections: values.examDetections.filter(el => el.id !== detectionId)
+		}));
+	}, [api, exam.id, setExam]);
+
+	const updateExamDetectionRevisedClassificationId = useCallback(async (detectionId: string, revisedClassificationId: string) => {
+		await api.patch(`/exams/learning/${exam.id}/detections/${detectionId}`, {
+			revisedClassificationId
 		});
-	}, [api, exam.id, revalidateExam]);
+	}, [api, exam.id]);
+
+	useEffect(() => {
+		if (exam.currentStep !== 'classify') {
+			api.post(`/exams/learning/${exam.id}/classify`).then(() => {
+				revalidateExam();
+			});
+		}
+	}, [api, exam.id, revalidateExam, exam.currentStep]);
 
 	const drawExamDetectionBbox = ([x0, y1, width, height]: Array<number>) => {
 		if (canvasRef.current) {
@@ -72,7 +94,9 @@ export const DetectionsClassifications: FC = () => {
 								<p><strong>Excentricidade:</strong> {detection.eccentricity}</p>
 								<p><strong>Extensão relativa:</strong> {detection.extent}</p>
 								<section className="details-buttons">
-									<Button variant='error'>Excluir</Button>
+									<Button variant='error' onClick={() => {
+										deleteExamDetection(detection.id);
+									}}>Excluir</Button>
 								</section>
 							</div>
 						}

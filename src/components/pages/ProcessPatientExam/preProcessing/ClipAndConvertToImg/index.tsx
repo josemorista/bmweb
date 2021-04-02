@@ -26,8 +26,10 @@ export const ClipAndConvertToImg: React.FC<IClipAndConvertToImg> = ({ goNext }) 
 	}, [api, exam.id, exam.originalImgLocationURL, revalidateExam]);
 
 	useEffect(() => {
-		reprocessImageWithConvertOptions();
-	}, [reprocessImageWithConvertOptions]);
+		if (exam.currentStep === 'initial') {
+			reprocessImageWithConvertOptions();
+		}
+	}, [reprocessImageWithConvertOptions, exam.currentStep]);
 
 	return <>
 		<div className='processed-result-container'>
